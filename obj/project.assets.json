@@ -4739,11 +4739,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Applicaties\\Avans\\C#\\prog5\\NinjaApp\\NinjaApp\\NinjaApp.csproj",
+      "projectUniqueName": "C:\\Applicaties\\Avans\\C#\\prog5\\NinjaApp\\NinjaApp.csproj",
       "projectName": "NinjaApp",
-      "projectPath": "C:\\Applicaties\\Avans\\C#\\prog5\\NinjaApp\\NinjaApp\\NinjaApp.csproj",
+      "projectPath": "C:\\Applicaties\\Avans\\C#\\prog5\\NinjaApp\\NinjaApp.csproj",
       "packagesPath": "C:\\Users\\pepijn\\.nuget\\packages\\",
-      "outputPath": "C:\\Applicaties\\Avans\\C#\\prog5\\NinjaApp\\NinjaApp\\obj\\",
+      "outputPath": "C:\\Applicaties\\Avans\\C#\\prog5\\NinjaApp\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
