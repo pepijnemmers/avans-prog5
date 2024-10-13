@@ -14,4 +14,11 @@
       </PackageReference>
     </ItemGroup>
 
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Views\Inventory\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\Inventory\Edit.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\Inventory\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\Shop\Index.cshtml" />
+    </ItemGroup>
+
 </Project>
