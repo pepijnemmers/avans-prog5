@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("NinjaApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+65c40b2ca00b25c4d034b8d5b85c35f49e21d27c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+94fd68ce0e433b93aa4d4fd2c554e7ec658a8d0f")]
 [assembly: System.Reflection.AssemblyProductAttribute("NinjaApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("NinjaApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
