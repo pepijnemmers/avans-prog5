@@ -1,18 +1,21 @@
-:root[data-theme="dark"]{
-  --background-pr: #121212;
-  --background-sec: #1e1e1e;
-  --background-ter: #333;
-  --body-color: #f2f2f2;
-  --body-color-sec: #fff;
+:root[data-theme="dark"] {
+  --background-pr: #161618;
+  --background-sec: #28282a;
+  --background-ter: #3b3b3d;
+  --body-color: #e1e1e1;
+  --body-color-sec: #f2f2f2;
+  --body-color-ter: #888;
   --primary-color: #258cfb;
+  --border: #4c4c4c;
 }
-:root[data-theme="light"]{
-  --background-pr: #f2f2f2;
+:root[data-theme="light"] {
+  --background-pr: #f7f6fb;
   --background-sec: #fff;
   --background-ter: #f2f2f2;
   --body-color: #333;
   --body-color-sec: #000;
   --primary-color: #258cfb;
+    --border: #ddd;
 }
 
 * {
@@ -43,6 +46,18 @@ html {
   border-color: var(--body-color);
 }
 
+input {
+  color: var(--body-color) !important;
+  background-color: var(--background-sec) !important;
+  border: 1px solid var(--background-ter) !important;
+  border-radius: .25rem;
+}
+.bg-clr-sec input,
+.tile input {
+  background-color: var(--background-ter) !important;
+  border-color: var(--border) !important;
+}
+
 html {
   position: relative;
   min-height: 100%;
@@ -52,16 +67,37 @@ body {
   margin-bottom: 60px;
   background-color: var(--background-pr);
   color: var(--body-color);
+  font-weight: 400;
 }
 
 h1, h2, h3, h4, h5, h6 {
   color: var(--body-color-sec);
+  font-weight: 700;
+}
+
+/* colors */
+.text-clr-pr {
+  color: var(--body-color);
+}
+.text-clr-sec {
+  color: var(--body-color-sec);
+}
+.text-clr-ter {
+  color: var(--body-color-ter);
+}
+.bg-clr-pr {
+  background-color: var(--background-pr);
+}
+.bg-clr-sec {
+  background-color: var(--background-sec);
+}
+.bg-clr-ter {
+  background-color: var(--background-ter);
 }
 
 /* navbar */
-.navbar {
-  background-color: var(--background-sec);
-  border-radius: 1.6em;
+.navheader {
+  border-bottom: 1px solid var(--border);
 }
 .navbar .navbar-brand {
   color: var(--body-color) !important;
@@ -81,3 +117,36 @@ h1, h2, h3, h4, h5, h6 {
   width: 2.5em;
   aspect-ratio: 1/1;
 }
+
+/* layout */
+.row {
+  margin-inline: 0;
+}
+
+.tile {
+  background-color: var(--background-sec);
+  margin: 1.8em 0;
+  padding: 1em;
+  border-radius: 1rem;
+  border: 1px solid var(--background-ter);
+}
+
+.border {
+    border: 1px solid var(--border) !important;
+}
+.border-top {
+    border-top: 1px solid var(--border) !important;
+}
+.border-bottom {
+    border-bottom: 1px solid var(--border) !important;
+}
+
+.custom-card {
+  background-color: var(--background-pr);
+  border: 1px solid var(--border);
+  border-radius: .6rem;
+  padding: 0;
+}
+
+/* value badges */
+/* TODO : value badge styling, image as background*/

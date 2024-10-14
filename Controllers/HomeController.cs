@@ -8,7 +8,9 @@ public class HomeController : Controller
 {
     public IActionResult Index()
     {
-        return View();
+        var ninjas = new List<Ninja>();
+        
+        return View(ninjas);
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
