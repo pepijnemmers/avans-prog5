@@ -1,3 +1,20 @@
+:root[data-theme="dark"]{
+  --background-pr: #121212;
+  --background-sec: #1e1e1e;
+  --background-ter: #333;
+  --body-color: #f2f2f2;
+  --body-color-sec: #fff;
+  --primary-color: #258cfb;
+}
+:root[data-theme="light"]{
+  --background-pr: #f2f2f2;
+  --background-sec: #fff;
+  --background-ter: #f2f2f2;
+  --body-color: #333;
+  --body-color-sec: #000;
+  --primary-color: #258cfb;
+}
+
 * {
   font-family: "Poppins", sans-serif;
 }
@@ -15,6 +32,16 @@ html {
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
+.btn-outline-secondary {
+  color: var(--body-color);
+  background-color: transparent;
+  border-color: var(--body-color-sec);
+}
+.btn-outline-secondary:hover {
+  color: var(--background-pr);
+  background-color: var(--body-color-sec);
+  border-color: var(--body-color);
+}
 
 html {
   position: relative;
@@ -23,14 +50,34 @@ html {
 
 body {
   margin-bottom: 60px;
-  background-color: #121212;
-  color: #ffffff;
+  background-color: var(--background-pr);
+  color: var(--body-color);
 }
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--body-color-sec);
+}
+
+/* navbar */
 .navbar {
-  background-color: #1e1e1e;
+  background-color: var(--background-sec);
+  border-radius: 1.6em;
 }
-footer {
-  background-color: #1e1e1e;
-  color: #ffffff;
-  padding: 1rem 0;
+.navbar .navbar-brand {
+  color: var(--body-color) !important;
+}
+.navbar .nav-link {
+  color: var(--body-color) !important;
+}
+.navbar .nav-link:hover,
+.navbar .nav-link:focus {
+  color: var(--primary-color) !important;
+}
+.navbar .nav-link.active {
+  color: var(--primary-color) !important;
+}
+.navbar #darkmode-toggle {
+  padding: 0;
+  width: 2.5em;
+  aspect-ratio: 1/1;
 }
