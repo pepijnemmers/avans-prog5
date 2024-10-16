@@ -3,11 +3,11 @@
     ViewData["Title"] = "Home Page";
 }
 <div>
-    <div class="d-flex justify-content-between align-items-md-center flex-column flex-md-row">
+    <div class="d-flex justify-content-between align-items-lg-center flex-column flex-lg-row">
         <div>
             <h1>Ninja's overzicht</h1>
         </div>
-        <div class="d-flex gap-2">
+        <div class="d-flex gap-2 mb-4 mb-lg-0 row-cols-2 row-cols-lg-auto">
             <form>
                 <div class="input-group">
                     <input class="form-control" list="datalistOptions" id="search" placeholder="Zoek een ninja..."/>
@@ -34,60 +34,64 @@
     <p>Welkom bij de Ninja Manager. Hier kun je al je ninja's, hun gear en exclusieve items beheren!</p>
 </div>
 
-<div class="tile">
-    @if (Model.Any()) @* todo add ! *@
-    {
-        <p class="py-5 m-0 text-center text-clr-ter">
-            @(
-            ViewBag.Search == null
-                ? "Er zijn nog geen ninja's aangemaakt. Klik op de knop hierboven om een nieuwe ninja aan te maken."
-                : $"Er zijn geen zoekresultaten voor: {ViewBag.Search}"
-            )
-        </p>
-    }
-    else
-    {
-        <div class="row">
-            <div class="custom-card col-12 col-md-6 col-lg-4" width="18rem">
-                <div class="card-body">
-                    <h4 class="card-title">Ninja naam</h4>
-                    <div class="py-3">
-                        <div class="value-badge gear-value">
-                            <p>Gear value</p>
-                            <p>3000</p>
-                        </div>
-                        <div class="value-badge strength" title="Strength">
-                            <div>500</div>
-                        </div>
-                        <div class="value-badge intelligence" title="Intelligence">
-                            <div>500</div>
-                        </div>
-                        <div class="value-badge agility">
-                            <div>500</div>
-                            <div>Agility</div>
-                        </div>
-                        <div class="value-badge gold">
-                            <div>500</div>
-                            <div>Gold</div>
-                        </div>
+<div>
+@if (Model.Any()) @* todo add ! *@
+{
+    <div class="custom-card">
+        <div class="card-body">
+            <p class="py-5 m-0 text-center text-clr-ter">
+                @(
+                ViewBag.Search == null
+                    ? "Er zijn nog geen ninja's aangemaakt. Klik op de knop hierboven om een nieuwe ninja aan te maken."
+                    : $"Er zijn geen zoekresultaten voor: {ViewBag.Search}"
+                )
+            </p>
+        </div>
+    </div>
+}
+else
+{
+    <div class="row">
+        <div class="custom-card col-12 col-md-6 col-lg-4" width="18rem">
+            <div class="card-body">
+                <h4 class="card-title">Ninja naam</h4>
+                <div class="py-3">
+                    <div class="value-badge gear-value">
+                        <p>Gear value</p>
+                        <p>3000</p>
                     </div>
-                    <div class="row gap-2">
-                        <a asp-controller="Inventory" asp-action="Index" asp-route-ninjaId="abc-def-efg" class="btn btn-primary col">
-                            <i class="fa-regular fa-eye"></i>
-                        </a>
-                        <a asp-controller="Inventory" asp-action="Edit" asp-route-ninjaId="abc-def-efg" class="btn btn-primary col">
-                            <i class="fa-regular fa-pen-to-square"></i>
-                        </a>
+                    <div class="value-badge strength" title="Strength">
+                        <div>500</div>
+                    </div>
+                    <div class="value-badge intelligence" title="Intelligence">
+                        <div>500</div>
+                    </div>
+                    <div class="value-badge agility">
+                        <div>500</div>
+                        <div>Agility</div>
+                    </div>
+                    <div class="value-badge gold">
+                        <div>500</div>
+                        <div>Gold</div>
                     </div>
                 </div>
+                <div class="row gap-2">
+                    <a asp-controller="Inventory" asp-action="Index" asp-route-ninjaId="abc-def-efg" class="btn btn-primary col">
+                        <i class="fa-regular fa-eye"></i>
+                    </a>
+                    <a asp-controller="Inventory" asp-action="Edit" asp-route-ninjaId="abc-def-efg" class="btn btn-primary col">
+                        <i class="fa-regular fa-pen-to-square"></i>
+                    </a>
                 </div>
+            </div>
         </div>
+    </div>
 
 
 
-            @* @foreach (var ninja in Model) *@
-            @* { *@
-            @*     <p>ninja: @ninja.Name</p> *@
-            @* } *@
-            }
-        </div>
+    @* @foreach (var ninja in Model) *@
+    @* { *@
+    @*     <p>ninja: @ninja.Name</p> *@
+    @* } *@
+}
+</div>

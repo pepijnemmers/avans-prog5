@@ -6,7 +6,7 @@
   --body-color-sec: #f2f2f2;
   --body-color-ter: #888;
   --primary-color: #258cfb;
-  --border: #4c4c4c;
+  --border: #424243;
 }
 :root[data-theme="light"] {
   --background-pr: #f7f6fb;
@@ -15,7 +15,7 @@
   --body-color: #333;
   --body-color-sec: #000;
   --primary-color: #258cfb;
-    --border: #ddd;
+  --border: #ddd;
 }
 
 * {
@@ -123,14 +123,6 @@ h1, h2, h3, h4, h5, h6 {
   margin-inline: 0;
 }
 
-.tile {
-  background-color: var(--background-sec);
-  margin: 1.8em 0;
-  padding: 1em;
-  border-radius: 1rem;
-  border: 1px solid var(--background-ter);
-}
-
 .border {
     border: 1px solid var(--border) !important;
 }
@@ -142,10 +134,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .custom-card {
-  background-color: var(--background-pr);
+  background-color: var(--background-sec);
+  border-radius: 1rem;
   border: 1px solid var(--border);
-  border-radius: .6rem;
   padding: 0;
+  margin: 1.8em 0;
 }
 
 /* value badges */
