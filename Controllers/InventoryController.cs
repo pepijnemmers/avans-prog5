@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace NinjaApp.Controllers;
 
-public class InventoryController : Controller
+public class InventoryController : MainController
 {
     public IActionResult Index(Guid ninjaId)
     {

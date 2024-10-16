@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace NinjaApp.Controllers;
 
-public class EquipmentController : Controller
+public class EquipmentController : MainController
 {
     public IActionResult Index()
     {
