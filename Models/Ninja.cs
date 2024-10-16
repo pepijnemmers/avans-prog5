@@ -26,21 +26,40 @@ public class Ninja
     
     public int GetTotalGearValue()
     {
-        return Inventory.Sum(item => item.Equipment.Agility + item.Equipment.Strength + item.Equipment.Intelligence);
+        return GetTotalGearAgility() + GetTotalGearStrength() + GetTotalGearIntelligence();
     }
     
     public int GetTotalGearAgility()
     {
-        return Inventory.Sum(item => item.Equipment.Agility);
+        // TODO : gets error
+        if (!Inventory.Any())
+        {
+            return 0;
+        }
+        
+        int totalAgility = 0;
+        
+        foreach (var item in Inventory)
+        {
+            Equipment eq = item.Equipment;
+            
+            int itemAgility = 0;
+
+            itemAgility = eq.Agility;
+            
+            totalAgility += itemAgility;
+        }
+        
+        return totalAgility;
     }
     
     public int GetTotalGearStrength()
     {
-        return Inventory.Sum(item => item.Equipment.Strength);
+        return Inventory?.Sum(item => item.Equipment.Strength) ?? 0;
     }
     
     public int GetTotalGearIntelligence()
     {
-        return Inventory.Sum(item => item.Equipment.Intelligence);
+        return Inventory?.Sum(item => item.Equipment.Intelligence) ?? 0;
     }
 }
