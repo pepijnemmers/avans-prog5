@@ -4,16 +4,32 @@ using NinjaApp.Models;
 
 namespace NinjaApp.Database;
 
-public class NinjaDbContext(DbContextOptions options) : DbContext(options)
+public class NinjaDbContext : DbContext
 {
     public DbSet<Ninja> Ninjas { get; set; }
     public DbSet<Equipment> Equipments { get; set; }
     public DbSet<Order> Orders { get; set; }
     
+    private IConfiguration Configuration => new ConfigurationBuilder()
+        .SetBasePath(Directory.GetCurrentDirectory())
+        .AddJsonFile("appsettings.json")
+        .Build();
+    
+    public NinjaDbContext()
+    {
+    }
+
+    public NinjaDbContext(DbContextOptions<NinjaDbContext> options)
+        : base(options)
+    {
+    }
+    
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.ConfigureWarnings(warnings => warnings.Ignore(RelationalEventId.PendingModelChangesWarning));
+        optionsBuilder.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
     }
+    
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

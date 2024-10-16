@@ -23,4 +23,24 @@ public class Ninja
     {
         return Inventory.ToDictionary(item => item.SlotCategory, item => item.Equipment);
     }
+    
+    public int GetTotalGearValue()
+    {
+        return Inventory.Sum(item => item.Equipment.Agility + item.Equipment.Strength + item.Equipment.Intelligence);
+    }
+    
+    public int GetTotalGearAgility()
+    {
+        return Inventory.Sum(item => item.Equipment.Agility);
+    }
+    
+    public int GetTotalGearStrength()
+    {
+        return Inventory.Sum(item => item.Equipment.Strength);
+    }
+    
+    public int GetTotalGearIntelligence()
+    {
+        return Inventory.Sum(item => item.Equipment.Intelligence);
+    }
 }

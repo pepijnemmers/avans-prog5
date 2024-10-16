@@ -1,21 +1,28 @@
-using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using NinjaApp.Models;
 
 namespace NinjaApp.Controllers;
 
-public class HomeController : Controller
+public class HomeController : MainController
 {
-    public IActionResult Index()
+    public IActionResult Index(string? search)
     {
-        var ninjas = new List<Ninja>();
-        
+        var ninjas = GetNinjas(search);
         return View(ninjas);
     }
-
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
+    
+    private List<Ninja> GetNinjas(string? search = null)
     {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        if (search != null)
+        {
+            return Context.Ninjas.ToList().Where(ninja => ninja.Name.Contains(search)).ToList();
+        } 
+        return Context.Ninjas.ToList();
+    }
+
+    [HttpGet]
+    public IActionResult Create()
+    {
+        return View();
     }
 }
