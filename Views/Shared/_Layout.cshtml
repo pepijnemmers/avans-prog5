@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="~/NinjaApp.styles.css" asp-append-version="true"/>
 </head>
 <body>
-<header class="sticky-top bg-clr-pr navheader shadow-sm">
+<header class="sticky-top navheader shadow-sm">
     <nav class="navbar navbar-expand-lg navbar-dark container py-3 px-4">
         <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
             <img src="~/img/logo.png" alt="Logo" height="30" class="d-inline-block align-text-top me-2"/>
@@ -56,6 +56,7 @@
 </div>
 
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/js/site.js" asp-append-version="true"></script>
 @await RenderSectionAsync("Scripts", required: false)

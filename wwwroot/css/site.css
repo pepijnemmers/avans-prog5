@@ -1,5 +1,9 @@
+:root {
+  --badge-height: 50px;
+}
 :root[data-theme="dark"] {
   --background-pr: #161618;
+  --background-pr-rgb: 22, 22, 24;
   --background-sec: #28282a;
   --background-ter: #3b3b3d;
   --body-color: #e1e1e1;
@@ -10,6 +14,7 @@
 }
 :root[data-theme="light"] {
   --background-pr: #f7f6fb;
+  --background-pr-rgb: 247, 246, 251;
   --background-sec: #fff;
   --background-ter: #f2f2f2;
   --body-color: #333;
@@ -98,6 +103,8 @@ h1, h2, h3, h4, h5, h6 {
 /* navbar */
 .navheader {
   border-bottom: 1px solid var(--border);
+  background-color: rgba(var(--background-pr-rgb), 0.7);
+  backdrop-filter: blur(15px);
 }
 .navbar .navbar-brand {
   color: var(--body-color) !important;
@@ -138,8 +145,87 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 1rem;
   border: 1px solid var(--border);
   padding: 0;
-  margin: 1.8em 0;
+  overflow: hidden;
+}
+.custom-card .card-body .col, .custom-card .card-body .col-12 {
+  padding: 0;
+}
+.custom-card .card-header {
+  padding: 1em;
+  border-bottom: 1px solid var(--border);
+}
+.custom-card h2, .custom-card h3, .custom-card h4 {
+  margin-bottom: 0;
+}
+.custom-card .card-footer {
+  padding: 1em;
+  border-top: 1px solid var(--border);
 }
 
 /* value badges */
 /* TODO : value badge styling, image as background*/
+.value-badge,
+.value-badge-long{
+  background-image: url(../img/badges/overall-small.png);
+  background-size: auto var(--badge-height);
+  background-repeat: no-repeat;
+  line-height: var(--badge-height);
+  padding-left: 2em;
+  margin: .4em 0;
+  font-weight: bold;
+  color: var(--bs-white);
+  display: inline-block;
+  width: 140px;
+  text-align: center;
+}
+.value-badge-long {
+  width: 235px;
+}
+
+.value-badge.gold {
+  background-image: url(../img/badges/gold.png);
+}
+.value-badge.agility {
+  background-image: url(../img/badges/agility.png);
+}
+.value-badge.intelligence {
+  background-image: url(../img/badges/intelligence.png);
+}
+.value-badge.strength {
+  background-image: url(../img/badges/strength.png);
+}
+.value-badge.price {
+    background-image: url(../img/badges/price.png);
+}
+
+.value-badge-long.overall {
+  background-image: url(../img/badges/overall-small-long.png);
+}
+.value-badge-long.gold {
+    background-image: url(../img/badges/gold-long.png);
+}
+.value-badge-long.agility {
+    background-image: url(../img/badges/agility-long.png);
+}
+.value-badge-long.intelligence {
+    background-image: url(../img/badges/intelligence-long.png);
+}
+.value-badge-long.strength {
+    background-image: url(../img/badges/strength-long.png);
+}
+.value-badge-long.price {
+    background-image: url(../img/badges/price-long.png);
+}
+
+.value-badge.gear-value-large,
+.value-badge-long.gear-value-large {
+  background-image: url(../img/badges/overall-large.png);
+  background-size: auto calc(var(--badge-height)* 1.8);
+  line-height: calc((var(--badge-height)* 1.8) - 4rem);
+  padding-top: 2.4em;
+  padding-left: 0;
+  font-size: 1.3rem;
+}
+.value-badge-long.gear-value-large {
+  background-image: url(../img/badges/overall-large-long.png);
+}
