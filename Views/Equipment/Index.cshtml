@@ -20,9 +20,15 @@
         @foreach (var category in Model.SlotCategories)
         {
             <div class="category mb-5">
-                <h2 class="h3 fw-bold mb-3" id="@category.ToString()">Categorie: @category.ToString()</h2>
-                
-                <div class="row">
+                <div class="d-flex justify-content-between align-items-lg-center flex-column flex-lg-row mb-3">
+                    <h2 class="h3 fw-bold mb-3" id="@category.ToString()">Categorie: @category.ToString()</h2>
+                    <a href="/equipment/new" class="btn btn-outline-primary float-right">
+                        <i class="fa-solid fa-plus"></i>
+                        Nieuwe equipment
+                    </a>
+                </div>
+
+                <div class="row auto-m">
                     @foreach (var equipment in Model.Equipments.Where(e => e.Category == category))
                     {
                         <div class="col">
@@ -105,7 +111,7 @@
             const confirmDeleteButton = document.getElementById('confirmDeleteButton');
 
             modalTitle.textContent = name;
-            confirmDeleteButton.setAttribute('href', '/Equipment/Delete/' + id);
+            confirmDeleteButton.setAttribute('href', '/Equipment/Delete?id=' + id);
         });
     </script>
 }
