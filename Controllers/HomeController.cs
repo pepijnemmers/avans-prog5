@@ -5,6 +5,7 @@ namespace NinjaApp.Controllers;
 
 public class HomeController : MainController
 {
+    [Route("")][Route("home")][Route("home/index")][Route("ninjas")]
     public IActionResult Index(string? search)
     {
         var ninjas = GetNinjas(search);
@@ -21,9 +22,31 @@ public class HomeController : MainController
         return Context.Ninjas.ToList();
     }
 
-    [HttpGet]
+    [HttpGet][Route("ninjas/new")]
     public IActionResult Create()
     {
         return View();
     }
+    
+    [HttpPost][Route("ninjas/new")]
+    public IActionResult Create(string Name, int Gold)
+    {
+        Ninja ninja = new(Guid.NewGuid(), Name, Gold, new List<InventoryItem>());
+        
+        // add to database
+        using var transaction = Context.Database.BeginTransaction();
+        try
+        {
+            Context.Ninjas.Add(ninja);
+            Context.SaveChanges();
+            transaction.Commit();
+        }
+        catch
+        {
+            transaction.Rollback();
+        }
+        
+        return RedirectToAction("Index");
+    }
+    
 }

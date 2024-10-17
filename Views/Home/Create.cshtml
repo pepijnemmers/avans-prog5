@@ -1,6 +1,65 @@
 @{
-    Layout = "_Layout";
+    ViewData["Title"] = "Ninja aanmaken";
 }
 
-<h2>create</h2>
-todo: links form, rechts preview zoals in index
+<h1>Ninja's aanmaken</h1>
+
+<div class="row">
+    <div class="col-12 col-md-8 pl-0">
+        <div class="custom-card">
+            <form class="card-body" method="post" asp-action="Create">
+                <div class="form-group">
+                    <label for="name">Naam</label>
+                    <input type="text" class="form-control" id="name" required
+                           name="Name" placeholder="De naam van de ninja"
+                           oninput="document.getElementById('name-example-title').innerHTML = this.value">
+                </div>
+                <div class="form-group">
+                    <label for="gold">Goud</label>
+                    <input type="number" class="form-control" id="gold" required min="0" max="999999"
+                           name="Gold" placeholder="Hoeveel goud de ninja heeft"
+                           oninput="document.getElementById('gold-example-badge').innerHTML = this.value">
+                </div>
+                <button type="submit" class="btn btn-primary">Aanmaken</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="col-12 col-md-4">
+        <p class="fst-italic fw-bold mb-2">Voorbeeld van ninja</p>
+        <div class="custom-card">
+            <div class="card-header text-center">
+                <h4 class="card-title" id="name-example-title">...</h4>
+            </div>
+            <div class="card-body text-center">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="value-badge-long gear-value-large" data-bs-toggle="tooltip" data-bs-title="Gear value">
+                            <p>0</p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <div class="value-badge strength" data-bs-toggle="tooltip" data-bs-title="Strength">
+                            <div>0</div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <div class="value-badge intelligence" data-bs-toggle="tooltip" data-bs-title="Intelligence">
+                            <div>0</div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <div class="value-badge agility" data-bs-toggle="tooltip" data-bs-title="Agility">
+                            <div>0</div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <div class="value-badge gold" data-bs-toggle="tooltip" data-bs-title="Gold">
+                            <div id="gold-example-badge">0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

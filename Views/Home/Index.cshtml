@@ -1,6 +1,6 @@
 ﻿@model List<Ninja>
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Ninja's overzicht";
 }
 <div>
     <div class="d-flex justify-content-between align-items-lg-center flex-column flex-lg-row">
@@ -34,7 +34,7 @@
                     }
                     </datalist>
             </form>
-            <a asp-action="Create" class="btn btn-primary float-right">
+            <a href="/ninjas/new" class="btn btn-primary float-right">
                 <i class="fa-solid fa-plus"></i>
                 Nieuwe ninja
             </a>
