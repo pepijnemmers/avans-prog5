@@ -24,7 +24,7 @@
         <div class="collapse navbar-collapse align-items-center" id="navbarNav">
             <ul class="navbar-nav ms-auto gap-2">
                 <li class="nav-item">
-                    <a href="/" class="nav-link @(Context.Request.Path == "/Ninjas" || Context.Request.Path == "/Home" || Context.Request.Path == "/" ? "active" : "")">Alle Ninja's</a>
+                    <a href="/" class="nav-link @(Context.Request.Path == "/Ninjas" || Context.Request.Path == "/Home" || Context.Request.Path == "/Home/Index" || Context.Request.Path == "/" ? "active" : "")">Alle Ninja's</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link @(Context.Request.Path == "/Equipment" ? "active" : "")" asp-area="" asp-controller="Equipment" asp-action="Index">Equipment</a>
