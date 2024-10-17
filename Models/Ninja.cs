@@ -31,16 +31,7 @@ public class Ninja
     
     public int GetTotalGearAgility()
     {
-        if (Inventory == null || !Inventory.Any()) return 0;
-
-        int totalAgility = 0;
-        
-        foreach (var item in Inventory)
-        {
-            totalAgility += item.Equipment.Agility;
-        }
-
-        return totalAgility;
+        return Inventory?.Sum(item => item.Equipment.Agility) ?? 0;
     }
     
     public int GetTotalGearStrength()
