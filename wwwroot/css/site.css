@@ -56,7 +56,7 @@ html {
 label {
     color: var(--body-color) !important;
 }
-input {
+input, .form-select {
   color: var(--body-color) !important;
   background-color: var(--background-sec) !important;
   border: 1px solid var(--border) !important;

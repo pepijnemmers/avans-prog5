@@ -38,7 +38,7 @@ public class HomeController : MainController
         // validate
         if (string.IsNullOrWhiteSpace(name) || gold < 0 || gold > 999999)
         {
-            ViewBag.ErrorMessage = "De naam mag niet leeg zijn en de goudwaarde moet groter zijn dan 0 en kleiner dan 999999.";
+            TempData["ErrorMessage"] = "De naam mag niet leeg zijn en de goudwaarde moet groter zijn dan 0 en kleiner dan 999999.";
             return Create();
         }
         

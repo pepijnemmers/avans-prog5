@@ -22,9 +22,28 @@ public class EquipmentController : MainController
         return Context.Equipments.ToList();
     }
 
-    public IActionResult New()
+    [HttpGet][Route("/equipment/new")]
+    public IActionResult Create()
     {
+        ViewBag.SlotCategories = Enum.GetValues<SlotCategory>().ToList();
         return View();
+    }
+    
+    [HttpPost][Route("/equipment/new")]
+    public IActionResult Create(Equipment equipment)
+    {
+        // TODO : create werkt niet
+        if (!ModelState.IsValid)
+        {
+            TempData["ErrorMessage"] = "Er is iets misgegaan bij het aanmaken van het equipment.";
+            ViewBag.SlotCategories = Enum.GetValues<SlotCategory>().ToList();
+            return RedirectToAction("Index");
+        }
+
+        Context.Equipments.Add(equipment);
+        Context.SaveChanges();
+        
+        return RedirectToAction("Index");
     }
     
     public IActionResult Edit(Guid id)
