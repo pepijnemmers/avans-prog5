@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using NinjaApp.Models;
 
 namespace NinjaApp.Controllers;
@@ -19,7 +20,10 @@ public class HomeController : MainController
         {
             return Context.Ninjas.ToList().Where(ninja => ninja.Name.ToLower().Contains(search.ToLower())).OrderBy(ninja => ninja.Name).ToList();
         } 
-        return Context.Ninjas.OrderBy(ninja => ninja.Name).ToList();
+        return Context.Ninjas
+            .OrderBy(ninja => ninja.Name).ToList();
+        
+        // todo include inventory toevoegen 
     }
 
     [HttpGet][Route("ninjas/new")]

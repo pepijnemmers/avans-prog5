@@ -31,25 +31,15 @@ public class Ninja
     
     public int GetTotalGearAgility()
     {
-        // TODO : gets error
-        if (!Inventory.Any())
-        {
-            return 0;
-        }
-        
+        if (Inventory == null || !Inventory.Any()) return 0;
+
         int totalAgility = 0;
         
         foreach (var item in Inventory)
         {
-            Equipment eq = item.Equipment;
-            
-            int itemAgility = 0;
-
-            itemAgility = eq.Agility;
-            
-            totalAgility += itemAgility;
+            totalAgility += item.Equipment.Agility;
         }
-        
+
         return totalAgility;
     }
     
