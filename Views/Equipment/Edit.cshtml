@@ -1,8 +1,102 @@
-@model dynamic
-
+@model Equipment
 @{
-    ViewBag.Title = "title";
-    Layout = "_Layout";
+    ViewData["Title"] = "Equipment bewerken";
 }
 
-<h2>title</h2>
+<h1>Equipment bewerken</h1>
+
+<div class="row">
+    <div class="col-12 col-md-8 pl-0">
+        <div class="custom-card">
+            <form class="card-body" method="post" asp-controller="Equipment" asp-action="Update">
+                <input type="hidden" name="Id" value="@Model.Id">
+                <div class="form-group">
+                    <label for="name">Naam</label>
+                    <input type="text" class="form-control" id="name" required value="@Model.Name"
+                           name="Name" placeholder="De naam voor de equipment"
+                           oninput="document.getElementById('name-example-title').innerHTML = this.value">
+                </div>
+                <div class="form-group">
+                    <label for="category">Categorie</label>
+                    <select class="form-select" id="category" required name="Category">
+                        <option value="" selected disabled>Selecteer een categorie</option>
+                        @if (ViewBag.SlotCategories != null)
+                        {
+                            @foreach (var category in ViewBag.SlotCategories)
+                            {
+                                @if (category == @Model.Category)
+                                {
+                                    <option value="@category" selected>@category</option>
+                                }
+                                else
+                                {
+                                    <option value="@category">@category</option>
+                                }
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="strength">Strength</label>
+                    <input type="number" class="form-control" id="strength" required max="99999" value="@Model.Strength"
+                           name="Strength" placeholder="De strength van de equipment"
+                           oninput="document.getElementById('strength-example').innerHTML = this.value">
+                </div>
+                <div class="form-group">
+                    <label for="intelligence">Intelligence</label>
+                    <input type="number" class="form-control" id="intelligence" required max="99999" value="@Model.Intelligence"
+                           name="Intelligence" placeholder="De intelligence van de equipment"
+                           oninput="document.getElementById('intelligence-example').innerHTML = this.value">
+                </div>
+                <div class="form-group">
+                    <label for="agility">Agility</label>
+                    <input type="number" class="form-control" id="agility" required max="99999" value="@Model.Agility"
+                           name="Agility" placeholder="De agility van de equipment"
+                           oninput="document.getElementById('agility-example').innerHTML = this.value">
+                </div>
+                <div class="form-group">
+                    <label for="price">Price</label>
+                    <input type="number" class="form-control" id="price" required min="0" max="99999" value="@Model.Price"
+                           name="Price" placeholder="De price van de equipment"
+                           oninput="document.getElementById('price-example').innerHTML = this.value">
+                </div>
+                <div class="d-flex gap-2 justify-content-end">
+                    <a asp-controller="Equipment" asp-action="Index" class="btn btn-secondary">Terug</a>
+                    <button type="submit" class="btn btn-primary">Opslaan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-12 col-md-4">
+        <p class="fst-italic fw-bold mb-2">Voorbeeld van de Equipment</p>
+        <div class="custom-card">
+            <div class="card-header text-center">
+                <h4 class="card-title" id="name-example-title">@Model.Name</h4>&nbsp;
+            </div>
+            <div class="card-body text-center">
+                <div class="row">
+                    <div class="col-12 col-sm-6">
+                        <div class="value-badge strength" data-bs-toggle="tooltip" data-bs-title="Strength">
+                            <div id="strength-example">@Model.Strength</div>&nbsp;
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <div class="value-badge intelligence" data-bs-toggle="tooltip" data-bs-title="Intelligence">
+                            <div id="intelligence-example">@Model.Intelligence</div>&nbsp;
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <div class="value-badge agility" data-bs-toggle="tooltip" data-bs-title="Agility">
+                            <div id="agility-example">@Model.Agility</div>&nbsp;
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <div class="value-badge price" data-bs-toggle="tooltip" data-bs-title="Price">
+                            <div id="price-example">@Model.Price</div>&nbsp;
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

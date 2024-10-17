@@ -14,10 +14,10 @@ public class Ninja
         Inventory = inventory;
     }
     
-    [Key] public Guid Id { get; private set; }
-    [Required][StringLength(255)] public string Name { get; private set; } = null!;
-    [Required] public int Gold { get; private set; }
-    [Required] public List<InventoryItem> Inventory { get; private set; } = null!;
+    [Key] public Guid Id { get; set; }
+    [Required][StringLength(255)] public string Name { get; set; } = null!;
+    [Required] public int Gold { get; set; }
+    [Required] public List<InventoryItem> Inventory { get; set; } = null!;
 
     public Dictionary<SlotCategory, Equipment> GetInventory()
     {

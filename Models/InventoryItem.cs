@@ -14,8 +14,8 @@ public class InventoryItem
         Ninja = ninja;
     }
     
-    [Key] public Guid Id { get; private set; }
-    [Required] public SlotCategory SlotCategory { get; private set; }
-    [Required] public Equipment Equipment { get; private set; } = null!;
-    [Required] public Ninja Ninja { get; private set; } = null!;
+    [Key] public Guid Id { get; set; }
+    [Required] public SlotCategory SlotCategory { get; set; }
+    [Required] public Equipment Equipment { get; set; } = null!;
+    [Required] public Ninja Ninja { get; set; } = null!;
 }

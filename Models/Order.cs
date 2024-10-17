@@ -14,8 +14,8 @@ public class Order
         Price = price;
     }
     
-    [Key] public Guid Id { get; private set; }
-    [Required] public Ninja Ninja { get; private set; } = null!;
-    [Required] public Equipment Equipment { get; private set; } = null!;
-    [Required] public int Price { get; private set; }
+    [Key] public Guid Id { get; set; }
+    [Required] public Ninja Ninja { get; set; } = null!;
+    [Required] public Equipment Equipment { get; set; } = null!;
+    [Required] public int Price { get; set; }
 }
