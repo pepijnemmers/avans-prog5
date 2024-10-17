@@ -29,6 +29,8 @@
 
 html {
   font-size: 16px;
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
 }
 
 @media (min-width: 768px) {
@@ -116,6 +118,7 @@ h1, h2, h3, h4, h5, h6 {
   border-bottom: 1px solid var(--border);
   background-color: rgba(var(--background-pr-rgb), 0.7);
   backdrop-filter: blur(15px);
+  z-index: 999999;
 }
 .navbar .navbar-brand {
   color: var(--body-color) !important;
@@ -171,6 +174,20 @@ h1, h2, h3, h4, h5, h6 {
 .custom-card .card-footer {
   padding: 1em;
   border-top: 1px solid var(--border);
+}
+
+.modal-content {
+  background-color: var(--background-pr);
+  border: 1px solid var(--border);
+}
+.modal-header {
+    border-bottom: 1px solid var(--border);
+}
+.modal-footer {
+    border-top: 1px solid var(--border);
+}
+.btn-close {
+  color: var(--body-color);
 }
 
 /* value badges */

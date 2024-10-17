@@ -1,8 +1,111 @@
-@model dynamic
-
+@model NinjaApp.ViewModels.EquipmentViewModel
 @{
-    ViewBag.Title = "title";
-    Layout = "_Layout";
+    ViewBag.Title = "Equipment";
 }
 
-<h2>title</h2>
+<h1>Alle Equipment</h1>
+
+<div class="row">
+    <nav class="sticky-top col-2 p-0" style="top: 5.5em; height: fit-content">
+        <p class="fw-bold">Navigeer naar:</p>
+        <div class="btn-group-vertical" role="group">
+            @foreach (var category in Model.SlotCategories)
+            {
+                <a class="btn btn-outline-primary" href="#@category.ToString()">@category.ToString()</a>
+            }
+        </div>
+    </nav>
+    
+    <div class="col-12 col-sm-10 min-vh-100">
+        @foreach (var category in Model.SlotCategories)
+        {
+            <div class="category mb-5">
+                <h2 class="h3 fw-bold mb-3" id="@category.ToString()">Categorie: @category.ToString()</h2>
+                
+                <div class="row">
+                    @foreach (var equipment in Model.Equipments.Where(e => e.Category == category))
+                    {
+                        <div class="col">
+                            <div class="custom-card">
+                                <div class="card-header text-center">
+                                    <h4 class="card-title">@equipment.Name</h4>
+                                </div>
+                                <div class="card-body text-center">
+                                    <div class="row">
+                                        <div class="col-12 col-sm-6">
+                                            <div class="value-badge strength" data-bs-toggle="tooltip" data-bs-title="Strength">
+                                                <div>@equipment.Strength</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-6">
+                                            <div class="value-badge intelligence" data-bs-toggle="tooltip" data-bs-title="Intelligence">
+                                                <div>@equipment.Intelligence</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-6">
+                                            <div class="value-badge agility" data-bs-toggle="tooltip" data-bs-title="Agility">
+                                                <div>@equipment.Agility</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-6">
+                                            <div class="value-badge price" data-bs-toggle="tooltip" data-bs-title="Price">
+                                                <div>@equipment.Price</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="row gap-2">
+                                        <button type="button" class="btn btn-outline-secondary col" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" data-id="@equipment.Id" data-name="@equipment.Name">
+                                            <i class="fa-regular fa-trash-can"></i>
+                                            Verwijder
+                                        </button>
+                                        <a asp-controller="Inventory" asp-action="Edit" asp-route-id="@equipment.Id" class="btn btn-outline-secondary col">
+                                            <i class="fa-regular fa-pen-to-square"></i>
+                                            Bewerk
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<!-- Single Modal -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Bevestig Verwijdering</h5>
+                <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Weet je zeker dat je <span id="modalNinjaName">dit item</span> wilt verwijderen?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuleer</button>
+                <a href="javascript:void(0)" id="confirmDeleteButton" class="btn btn-danger">Verwijder</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        const confirmDeleteModal = document.getElementById('confirmDeleteModal');
+        confirmDeleteModal.addEventListener('show.bs.modal', function (event) {
+            const button = event.relatedTarget;
+            const id = button.getAttribute('data-id');
+            const name = button.getAttribute('data-name');
+            const modalTitle = document.getElementById('modalNinjaName');
+            const confirmDeleteButton = document.getElementById('confirmDeleteButton');
+
+            modalTitle.textContent = name;
+            confirmDeleteButton.setAttribute('href', '/Equipment/Delete/' + id);
+        });
+    </script>
+}
