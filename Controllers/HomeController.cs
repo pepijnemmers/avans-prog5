@@ -8,6 +8,7 @@ public class HomeController : MainController
     public IActionResult Index(string? search)
     {
         var ninjas = GetNinjas(search);
+        if (search != null) ViewBag.Search = search;
         return View(ninjas);
     }
     
@@ -15,7 +16,7 @@ public class HomeController : MainController
     {
         if (search != null)
         {
-            return Context.Ninjas.ToList().Where(ninja => ninja.Name.Contains(search)).ToList();
+            return Context.Ninjas.ToList().Where(ninja => ninja.Name.ToLower().Contains(search.ToLower())).ToList();
         } 
         return Context.Ninjas.ToList();
     }

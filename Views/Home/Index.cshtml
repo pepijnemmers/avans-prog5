@@ -8,10 +8,10 @@
             <h1>Ninja's overzicht</h1>
         </div>
         <div class="d-flex gap-2 mb-4 mb-lg-0 row-cols-2 row-cols-lg-auto">
-            <form>
+            <form method="get" asp-action="Index">
                 <div class="input-group">
-                    <input class="form-control" list="datalistOptions" id="search" placeholder="Zoek een ninja..."/>
-                    <button class="btn border text-clr-pr" type="button">
+                    <input class="form-control" name="search" type="search" list="datalistOptions" placeholder="Zoek een ninja..." />
+                    <button class="btn btn-outline-secondary border" type="submit">
                         <i class="fa-solid fa-search"></i>
                     </button>
                 </div>
@@ -60,58 +60,61 @@
     }
     else
     {
-    <div class="row">
-    @foreach (var ninja in Model)
-    {
-        <div class="p-2 col-12 col-md-6 col-lg-4">
-            <div class="custom-card">
-                <div class="card-header text-center">
-                    <h4 class="card-title">@ninja.Name</h4>
-                </div>
-                <div class="card-body text-center">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="value-badge-long gear-value-large" data-bs-toggle="tooltip" data-bs-title="Gear value">
-                                <p>@ninja.GetTotalGearValue()</p>
+        @if (ViewBag.Search != null) { <p class="text-primary">Zoekresultaten voor: @ViewBag.Search <a asp-action="Index"><i class="fa-solid fa-times"></i></a></p> }
+        <div class="row">
+            @foreach (var ninja in Model)
+            {
+                <div class="p-2 col-12 col-md-6 col-lg-4">
+                    <div class="custom-card">
+                        <div class="card-header text-center">
+                            <h4 class="card-title">@ninja.Name</h4>
+                        </div>
+                        <div class="card-body text-center">
+                            <div class="row">
+                                @*
+                                <div class="col-12">
+                                    <div class="value-badge-long gear-value-large" data-bs-toggle="tooltip" data-bs-title="Gear value">
+                                        <p>@ninja.GetTotalGearValue()</p>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="value-badge strength" data-bs-toggle="tooltip" data-bs-title="Strength">
+                                        <div>@ninja.GetTotalGearStrength()</div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="value-badge intelligence" data-bs-toggle="tooltip" data-bs-title="Intelligence">
+                                        <div>@ninja.GetTotalGearIntelligence()</div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="value-badge agility" data-bs-toggle="tooltip" data-bs-title="Agility">
+                                        <div>@ninja.GetTotalGearAgility()</div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="value-badge gold" data-bs-toggle="tooltip" data-bs-title="Gold">
+                                        <div>@ninja.Gold</div>
+                                    </div>
+                                </div>
+                                *@
                             </div>
                         </div>
-                        <div class="col-12 col-sm-6">
-                            <div class="value-badge strength" data-bs-toggle="tooltip" data-bs-title="Strength">
-                                <div>@ninja.GetTotalGearStrength()</div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-6">
-                            <div class="value-badge intelligence" data-bs-toggle="tooltip" data-bs-title="Intelligence">
-                                <div>@ninja.GetTotalGearIntelligence()</div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-6">
-                            <div class="value-badge agility" data-bs-toggle="tooltip" data-bs-title="Agility">
-                                <div>@ninja.GetTotalGearAgility()</div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-6">
-                            <div class="value-badge gold" data-bs-toggle="tooltip" data-bs-title="Gold">
-                                <div>@ninja.Gold</div>
+                        <div class="card-footer">
+                            <div class="row gap-2">
+                                <a href="/inventory/@ninja.Id" class="btn btn-outline-secondary col">
+                                    <i class="fa-regular fa-eye"></i>
+                                    Bekijk
+                                </a>
+                                <a asp-controller="Inventory" asp-action="Edit" asp-route-id="@ninja.Id" class="btn btn-outline-secondary col">
+                                    <i class="fa-regular fa-pen-to-square"></i>
+                                    Bewerk
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="card-footer">
-                    <div class="row gap-2">
-                        <a asp-controller="Inventory" asp-action="Index" asp-route-ninjaId="abc-def-efg" class="btn btn-outline-secondary col">
-                            <i class="fa-regular fa-eye"></i>
-                            Bekijk
-                        </a>
-                        <a asp-controller="Inventory" asp-action="Edit" asp-route-ninjaId="abc-def-efg" class="btn btn-outline-secondary col">
-                            <i class="fa-regular fa-pen-to-square"></i>
-                            Bewerk
-                        </a>
-                    </div>
-                </div>
-            </div>
+            }
         </div>
     }
-    </div>
-}
 </div>
