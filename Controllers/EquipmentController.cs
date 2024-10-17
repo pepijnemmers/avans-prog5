@@ -23,9 +23,13 @@ public class EquipmentController : MainController
     }
 
     [HttpGet][Route("/equipment/new")]
-    public IActionResult Create()
+    public IActionResult Create(string? category = null)
     {
         ViewBag.SlotCategories = Enum.GetValues<SlotCategory>().ToList();
+        if (category != null)
+        {
+            ViewBag.SelectedCategory = Enum.Parse<SlotCategory>(category);
+        }
         return View();
     }
     
@@ -55,7 +59,7 @@ public class EquipmentController : MainController
     }
 
     [HttpPost]
-    public IActionResult Update(Equipment equipment)
+    public IActionResult Update(Equipment equipment, Guid id)
     {
         if (!ModelState.IsValid)
         {
@@ -63,8 +67,21 @@ public class EquipmentController : MainController
             ViewBag.SlotCategories = Enum.GetValues<SlotCategory>().ToList();
             return RedirectToAction("Index");
         }
+        
+        var existingEquipment = Context.Equipments.Find(id);
+        if (existingEquipment == null)
+        {
+            TempData["ErrorMessage"] = "Het equipment kon niet worden gevonden.";
+            return RedirectToAction("Index");
+        }
 
-        Context.Equipments.Update(equipment);
+        existingEquipment.Name = equipment.Name;
+        existingEquipment.Category = equipment.Category;
+        existingEquipment.Strength = equipment.Strength;
+        existingEquipment.Intelligence = equipment.Intelligence;
+        existingEquipment.Agility = equipment.Agility;
+        existingEquipment.Price = equipment.Price;
+        
         Context.SaveChanges();
         
         TempData["SuccessMessage"] = $"Equipment {equipment.Name} is succesvol bewerkt.";
