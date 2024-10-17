@@ -50,6 +50,28 @@
 </header>
 
 <div class="container mt-2">
+    @if (ViewBag.ErrorMessage != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            <i class="fas fa-exclamation-circle me-2"></i>
+            @ViewBag.ErrorMessage
+        </div>
+    }
+    @if (ViewBag.WarningMessage != null)
+    {
+        <div class="alert alert-warning" role="alert">
+            <i class="fas fa-exclamation-triangle me-2"></i>
+            @ViewBag.WarningMessage
+        </div>
+    }
+    @if (ViewBag.SuccessMessage != null)
+    {
+        <div class="alert alert-success" role="alert">
+            <i class="fas fa-check-circle me-2"></i>
+            @ViewBag.SuccessMessage
+        </div>
+    }
+    
     <main role="main" class="py-3 min-vh-100">
         @RenderBody()
     </main>
