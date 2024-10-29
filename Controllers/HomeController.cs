@@ -20,10 +20,11 @@ public class HomeController : MainController
         {
             return Context.Ninjas.ToList().Where(ninja => ninja.Name.ToLower().Contains(search.ToLower())).OrderBy(ninja => ninja.Name).ToList();
         } 
-        return Context.Ninjas
-            .OrderBy(ninja => ninja.Name).ToList();
         
-        // todo include inventory toevoegen 
+        return Context.Ninjas
+            .Include(ninja => ninja.Inventory)
+            .OrderBy(ninja => ninja.Name)
+            .ToList();
     }
 
     [HttpGet][Route("ninjas/new")]

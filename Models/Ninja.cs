@@ -31,6 +31,7 @@ public class Ninja
     
     public int GetTotalGearAgility()
     {
+        // TODO! in the inventory, the equipment is null
         return Inventory?.Sum(item => item.Equipment.Agility) ?? 0;
     }
     
