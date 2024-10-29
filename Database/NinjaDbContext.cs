@@ -33,7 +33,8 @@ public class NinjaDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        // creating seed data //
+        // ** creating seed data ** //
+        // Ninjas
         var n1 = new Ninja(Guid.NewGuid(), "Shadowstrike Kenji", 2000, []);
         var n2 = new Ninja(Guid.NewGuid(), "Crimson Whisper", 500, []);
         var n3 = new Ninja(Guid.NewGuid(), "Nightwind Taro", 2000, []);
@@ -68,7 +69,15 @@ public class NinjaDbContext : DbContext
         var e17 = new Equipment(Guid.NewGuid(), "Mystic Necklace", SlotCategory.Necklace, 220, 20, 180, 75);
         var e18 = new Equipment(Guid.NewGuid(), "Pendant of Speed", SlotCategory.Necklace, 190, 5, 70, 280);
         
+        // Inventory items
+        var i1 = new InventoryItem(Guid.NewGuid(), SlotCategory.Head, e1, n1);
+        var i2 = new InventoryItem(Guid.NewGuid(), SlotCategory.Chest, e4, n1);
+        var i3 = new InventoryItem(Guid.NewGuid(), SlotCategory.Hand, e7, n1);
+        var i4 = new InventoryItem(Guid.NewGuid(), SlotCategory.Head, e2, n2);
+        var i5 = new InventoryItem(Guid.NewGuid(), SlotCategory.Chest, e5, n2);
+        
         modelBuilder.Entity<Ninja>().HasData(n1, n2, n3);
         modelBuilder.Entity<Equipment>().HasData(e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, e13, e14, e15, e16, e17, e18);
+        modelBuilder.Entity<InventoryItem>().HasData(i1, i2, i3, i4, i5);
     }
 }
