@@ -1,8 +1,19 @@
-@model dynamic
+@model Ninja
 
 @{
-    ViewBag.Title = "title";
-    Layout = "_Layout";
+    ViewBag.Title = "Ninja bewerken";
+    var breadcrumbs = new Dictionary<string, string>
+    {
+        { "Ninja's", "/ninjas" },
+        { Model.Name, "/inventory/" + Model.Id },
+        { "Bewerken", "/inventory/edit/" + Model.Id }
+    };
 }
 
-<h2>title</h2>
+<component type="typeof(NinjaApp.Views.Components.TitleAndBreadcrumb)"
+           render-mode="Static"
+           param-title="@ViewData["title"]"
+           param-breadcrumbs="@breadcrumbs" />
+
+<p>Ninja naam: @Model.Name</p>
+<p>Ninja id: @Model.Id</p>

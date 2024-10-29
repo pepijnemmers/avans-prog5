@@ -1,8 +1,16 @@
 @{
     ViewData["Title"] = "Ninja aanmaken";
+    var breadcrumbs = new Dictionary<string, string>
+    {
+        { "Ninja's", "/ninjas" },
+        { "Aanmaken", "/ninjas/new" }
+    };
 }
 
-<h1>Ninja aanmaken</h1>
+<component type="typeof(NinjaApp.Views.Components.TitleAndBreadcrumb)"
+           render-mode="Static"
+           param-title="@ViewData["title"]"
+           param-breadcrumbs="@breadcrumbs" />
 
 <div class="row">
     <div class="col-12 col-md-8 pl-0">

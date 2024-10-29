@@ -1,11 +1,19 @@
 ﻿@model List<Ninja>
 @{
     ViewData["Title"] = "Ninja's overzicht";
+    var breadcrumbs = new Dictionary<string, string>
+    {
+        { "Ninja's", "/ninjas" }
+    };
 }
+
 <div>
     <div class="d-flex justify-content-between align-items-lg-center flex-column flex-lg-row">
         <div>
-            <h1>Ninja's overzicht</h1>
+            <component type="typeof(NinjaApp.Views.Components.TitleAndBreadcrumb)"
+                       render-mode="Static"
+                       param-title="@ViewData["title"]"
+                       param-breadcrumbs="@breadcrumbs" />
         </div>
         <div class="d-flex gap-2 mb-4 mb-lg-0 row-cols-2 row-cols-lg-auto">
             <form method="get" asp-action="Index">

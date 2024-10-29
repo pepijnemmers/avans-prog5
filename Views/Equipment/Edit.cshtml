@@ -1,9 +1,17 @@
 @model Equipment
 @{
     ViewData["Title"] = "Equipment bewerken";
+    var breadcrumbs = new Dictionary<string, string>
+    {
+        { "Equipment", "/equipment" },
+        { "Bewerken", "/equipment/edit" }
+    };
 }
 
-<h1>Equipment bewerken</h1>
+<component type="typeof(NinjaApp.Views.Components.TitleAndBreadcrumb)"
+           render-mode="Static"
+           param-title="@ViewData["title"]"
+           param-breadcrumbs="@breadcrumbs" />
 
 <div class="row">
     <div class="col-12 col-md-8 pl-0">

@@ -9,11 +9,27 @@ public class InventoryController : MainController
     public IActionResult Index(Guid ninjaId)
     {
         Ninja? ninja = Context.Ninjas.Find(ninjaId);
+        
+        if (ninja == null)
+        {
+            TempData["ErrorMessage"] = "De ninja kon niet gevonden worden.";
+            return RedirectToAction("Index", "Home");
+        }
+        
         return View(ninja);
     }
     
+    [HttpGet][Route("Inventory/Edit/{ninjaId}")]
     public IActionResult Edit(Guid ninjaId)
     {
-        return View();
+        Ninja? ninja = Context.Ninjas.Find(ninjaId);
+        
+        if (ninja == null)
+        {
+            TempData["ErrorMessage"] = "De ninja kon niet gevonden worden.";
+            return RedirectToAction("Index", "Home");
+        }
+        
+        return View(ninja);
     }
 }

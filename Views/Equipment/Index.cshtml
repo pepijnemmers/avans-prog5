@@ -1,9 +1,16 @@
 @model NinjaApp.ViewModels.EquipmentViewModel
 @{
     ViewBag.Title = "Equipment";
+    var breadcrumbs = new Dictionary<string, string>
+    {
+        { "Equipment", "/equipment" }
+    };
 }
 
-<h1>Alle Equipment</h1>
+<component type="typeof(NinjaApp.Views.Components.TitleAndBreadcrumb)"
+           render-mode="Static"
+           param-title="@ViewData["title"]"
+           param-breadcrumbs="@breadcrumbs" />
 
 <div class="row">
     <nav class="sticky-top col-2 p-0" style="top: 5.5em; height: fit-content">
