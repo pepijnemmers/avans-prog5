@@ -8,6 +8,7 @@ public class NinjaDbContext : DbContext
 {
     public DbSet<Ninja> Ninjas { get; set; }
     public DbSet<Equipment> Equipments { get; set; }
+    public DbSet<InventoryItem> InventoryItems { get; set; }
     public DbSet<Order> Orders { get; set; }
     
     private IConfiguration Configuration => new ConfigurationBuilder()
