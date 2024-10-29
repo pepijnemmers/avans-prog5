@@ -65,51 +65,9 @@
             @foreach (var ninja in Model)
             {
                 <div class="p-2 col-12 col-md-6 col-lg-4">
-                    <div class="custom-card">
-                        <div class="card-header p-0">
-                            <div class="p-3 d-flex align-items-center justify-content-between">
-                                <a href="/inventory/@ninja.Id">
-                                    <h4 class="card-title">@ninja.Name</h4>
-                                </a>
-                                <a class="fs-4" asp-controller="Inventory" asp-action="Edit" asp-route-id="@ninja.Id" data-bs-toggle="tooltip" data-bs-title="Ninja bewerken">
-                                    <i class="fa-regular fa-pen-to-square"></i>
-                                </a>
-                            </div>
-                            <a href="/inventory/@ninja.Id">
-                                <div class="img-container w-100" style="max-height: 300px">
-                                    <img src="~/img/ninja.jpg" alt="Ninja"
-                                         onerror="this.onerror=null; this.src='https://placehold.co/353x300?text=Ninja%20Manager';">
-                                </div>
-                            </a>
-                        </div>
-                        <div class="card-body text-center pt-0">
-                            <div class="value-badge-long gear-value-large mt--50" data-bs-toggle="tooltip" data-bs-title="Gear value">
-                                <p>@ninja.GetTotalGearValue()</p>
-                            </div>
-                            <div class="row">
-                                <div class="col-12 col-sm-6">
-                                    <div class="value-badge strength" data-bs-toggle="tooltip" data-bs-title="Strength">
-                                        <div>@ninja.GetTotalGearStrength()</div>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-sm-6">
-                                    <div class="value-badge intelligence" data-bs-toggle="tooltip" data-bs-title="Intelligence">
-                                        <div>@ninja.GetTotalGearIntelligence()</div>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-sm-6">
-                                    <div class="value-badge agility" data-bs-toggle="tooltip" data-bs-title="Agility">
-                                        <div>@ninja.GetTotalGearAgility()</div>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-sm-6">
-                                    <div class="value-badge gold" data-bs-toggle="tooltip" data-bs-title="Gold">
-                                        <div>@ninja.Gold</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <component type="typeof(NinjaApp.Views.Components.NinjaCard)"
+                               render-mode="ServerPrerendered"
+                               param-ninja="@ninja" />
                 </div>
             }
         </div>
