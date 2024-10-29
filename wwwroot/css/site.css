@@ -31,12 +31,23 @@ html {
   font-size: 16px;
   scroll-behavior: smooth;
   scroll-padding-top: 80px;
+  cursor: url("../img/cursor.png"), auto;
 }
 
 @media (min-width: 768px) {
   html {
     font-size: 17px;
   }
+}
+
+a, button, .btn, .link {
+  cursor: url("../img/pointer.png"), pointer !important;
+}
+input {
+    cursor: url("../img/cursor-text.png"), text !important;
+}
+:disabled, .disabled {
+  cursor: url("../img/pointer-disabled.png"), not-allowed !important;
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
