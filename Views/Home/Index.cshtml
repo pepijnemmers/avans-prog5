@@ -66,16 +66,22 @@
             {
                 <div class="p-2 col-12 col-md-6 col-lg-4">
                     <div class="custom-card">
-                        <div class="card-header text-center">
-                            <h4 class="card-title">@ninja.Name</h4>
+                        <div class="card-header p-0">
+                            <div class="p-3 d-flex align-items-center justify-content-between">
+                                <a href="/inventory/@ninja.Id">
+                                    <h4 class="card-title">@ninja.Name</h4>
+                                </a>
+                                <a class="fs-4" asp-controller="Inventory" asp-action="Edit" asp-route-id="@ninja.Id" data-bs-toggle="tooltip" data-bs-title="Ninja bewerken">
+                                    <i class="fa-regular fa-pen-to-square"></i>
+                                </a>
+                            </div>
+                            <img src="https://placehold.co/300x150/png" class="w-100" alt="">
                         </div>
-                        <div class="card-body text-center">
+                        <div class="card-body text-center pt-0">
+                            <div class="value-badge-long gear-value-large mt--50" data-bs-toggle="tooltip" data-bs-title="Gear value">
+                                <p>@ninja.GetTotalGearValue()</p>
+                            </div>
                             <div class="row">
-                                <div class="col-12">
-                                    <div class="value-badge-long gear-value-large" data-bs-toggle="tooltip" data-bs-title="Gear value">
-                                        <p>@ninja.GetTotalGearValue()</p>
-                                    </div>
-                                </div>
                                 <div class="col-12 col-sm-6">
                                     <div class="value-badge strength" data-bs-toggle="tooltip" data-bs-title="Strength">
                                         <div>@ninja.GetTotalGearStrength()</div>
@@ -96,18 +102,6 @@
                                         <div>@ninja.Gold</div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <div class="row gap-2">
-                                <a href="/inventory/@ninja.Id" class="btn btn-outline-secondary col">
-                                    <i class="fa-regular fa-eye"></i>
-                                    Bekijk
-                                </a>
-                                <a asp-controller="Inventory" asp-action="Edit" asp-route-id="@ninja.Id" class="btn btn-outline-secondary col">
-                                    <i class="fa-regular fa-pen-to-square"></i>
-                                    Bewerk
-                                </a>
                             </div>
                         </div>
                     </div>
