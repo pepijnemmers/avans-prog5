@@ -43,10 +43,17 @@ public class EquipmentController : MainController
             return RedirectToAction("Index");
         }
 
-        Context.Equipments.Add(equipment);
-        Context.SaveChanges();
+        try
+        {
+            Context.Equipments.Add(equipment);
+            Context.SaveChanges();
+            TempData["SuccessMessage"] = $"Equipment {equipment.Name} is succesvol aangemaakt.";
+        }
+        catch
+        {
+            TempData["ErrorMessage"] = "Er is iets misgegaan bij het aanmaken van het equipment.";
+        }
         
-        TempData["SuccessMessage"] = $"Equipment {equipment.Name} is succesvol aangemaakt.";
         return RedirectToAction("Index");
     }
     
@@ -82,9 +89,16 @@ public class EquipmentController : MainController
         existingEquipment.Agility = equipment.Agility;
         existingEquipment.Price = equipment.Price;
         
-        Context.SaveChanges();
+        try
+        {
+            Context.SaveChanges();
+            TempData["SuccessMessage"] = $"Equipment {equipment.Name} is succesvol bewerkt.";
+        }
+        catch
+        {
+            TempData["ErrorMessage"] = "Er is iets misgegaan bij het updaten van het equipment.";
+        }
         
-        TempData["SuccessMessage"] = $"Equipment {equipment.Name} is succesvol bewerkt.";
         return RedirectToAction("Index");
     }
     
@@ -97,11 +111,18 @@ public class EquipmentController : MainController
             TempData["ErrorMessage"] = "Er is iets misgegaan bij het verwijderen van het equipment.";
             return RedirectToAction("Index");
         }
+
+        try
+        {
+            Context.Equipments.Remove(equipment);
+            Context.SaveChanges();
+            TempData["SuccessMessage"] = $"Equipment {equipment.Name} is succesvol verwijderd.";
+        }
+        catch
+        {
+            TempData["ErrorMessage"] = "Er is iets misgegaan bij het verwijderen van het equipment.";
+        }
         
-        Context.Equipments.Remove(equipment);
-        Context.SaveChanges();
-        
-        TempData["SuccessMessage"] = $"Equipment {equipment.Name} is succesvol verwijderd.";
         return RedirectToAction("Index");
     }
 }

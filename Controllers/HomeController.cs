@@ -45,16 +45,14 @@ public class HomeController : MainController
         Ninja ninja = new(Guid.NewGuid(), name, gold, new List<InventoryItem>());
         
         // add to database
-        using var transaction = Context.Database.BeginTransaction();
         try
         {
             Context.Ninjas.Add(ninja);
             Context.SaveChanges();
-            transaction.Commit();
         }
         catch
         {
-            transaction.Rollback();
+            TempData["ErrorMessage"] = "Er is iets misgegaan bij het aanmaken van de ninja.";
         }
         
         return RedirectToAction("Index");
