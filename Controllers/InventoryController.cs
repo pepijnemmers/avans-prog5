@@ -16,6 +16,7 @@ public class InventoryController : MainController
             return RedirectToAction("Index", "Home");
         }
         
+        // TODO - check of juiste stats worden getoond
         return View(ninja);
     }
     

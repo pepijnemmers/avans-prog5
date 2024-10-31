@@ -101,7 +101,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuleer</button>
-                <a asp-controller="Equipment" asp-action="Delete" id="confirmDeleteButton" class="btn btn-danger">Verwijder</a>
+                <a href="javascript:void(0)" class="btn btn-danger" id="confirmDeleteButton">Verwijder</a>
             </div>
         </div>
     </div>
@@ -118,7 +118,7 @@
             const confirmDeleteButton = document.getElementById('confirmDeleteButton');
 
             modalTitle.textContent = name;
-            confirmDeleteButton.setAttribute('href', confirmDeleteButton.getAttribute('href') + '/' + id);
+            confirmDeleteButton.setAttribute('href', '/Equipment/Delete/' + id);
         });
     </script>
 }

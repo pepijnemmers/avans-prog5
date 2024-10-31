@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = @Model.Name;
+    var title = "Inventory";
     var breadcrumbs = new Dictionary<string, string>
     {
         { "Ninja's", "/ninjas" },
@@ -11,8 +12,66 @@
 
 <component type="typeof(NinjaApp.Views.Components.TitleAndBreadcrumb)"
            render-mode="Static"
-           param-title="@ViewData["title"]"
+           param-title="@title"
            param-breadcrumbs="@breadcrumbs" />
+           
+<div class="row mb-3">
+    <div class="col-12 col-lg px-0 d-flex align-items-center gap-3">
+        <h2 class="h3 m-0">@Model.Name</h2>
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-secondary border-0" data-bs-title="Naam bewerken" data-bs-toggle="tooltip">
+            <i class="fas fa-edit"></i>
+        </a>
+    </div>
+    
+    <div class="col-12 col-lg px-0 d-flex flex-wrap flex-lg-nowrap gap-1">
+        <div class="d-flex align-items-center">
+            <div class="value-badge gear-value" data-bs-toggle="tooltip" data-bs-title="Gear value">
+                <div>@Model.GetTotalGearValue()</div>
+            </div>
+        </div>
+        <div class="d-flex align-items-center">
+            <div class="value-badge strength" data-bs-toggle="tooltip" data-bs-title="Strength">
+                <div>@Model.GetTotalGearStrength()</div>
+            </div>
+        </div>
+        <div class="d-flex align-items-center">
+            <div class="value-badge intelligence" data-bs-toggle="tooltip" data-bs-title="Intelligence">
+                <div>@Model.GetTotalGearIntelligence()</div>
+            </div>
+        </div>
+        <div class="d-flex align-items-center">
+            <div class="value-badge agility" data-bs-toggle="tooltip" data-bs-title="Agility">
+                <div>@Model.GetTotalGearAgility()</div>
+            </div>
+        </div>
+        <div class="d-flex align-items-center">
+            <div class="value-badge gold" data-bs-toggle="tooltip" data-bs-title="Gold">
+                <div>@Model.Gold</div>
+            </div>
+        </div>
+        <div class="vr mx-2 d-none d-lg-block"></div>
+        <a class="align-items-center btn btn-primary d-flex justify-content-center gap-2 px-3 rounded-pill w-100" 
+           data-bs-toggle="tooltip" data-bs-title="Open de shop voor deze ninja"
+           asp-controller="Shop" asp-action="Index" asp-route-ninjaId="@Model.Id">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="20">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"/>
+            </svg>
+            <span>Shop</span>
+        </a>
+    </div>
+</div>
 
-<p>Ninja naam: @Model.Name</p>
-<p>Ninja id: @Model.Id</p>
+
+
+<div>
+    <ul>
+        <li>
+            Main
+            <ul>
+                <li>col met 3 items</li>
+                <li>foto en "legen" knop onderaan</li>
+                <li>col met 3 items</li>
+            </ul>
+        </li>
+    </ul>
+</div>
