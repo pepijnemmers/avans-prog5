@@ -16,12 +16,6 @@ public class Ninja
     
     public int GetTotalGearAgility()
     {
-        // TODO! in the inventory, the equipment is null
-        // fout zit wss in de seed data / database 
-        // krijg ook melding "Unable to create a 'DbContext' of type 'NinjaDbContext'.
-            // The exception 'The seed entity for entity type 'InventoryItem' cannot be added because no value was provided for the required
-            // property 'EquipmentId'.' was thrown while attempting to create an instance. For the different patterns supported at design time,
-            // see https://go.microsoft.com/fwlink/?linkid=851728"
         return Inventory?.Sum(item => item.Equipment.Agility) ?? 0;
     }
     

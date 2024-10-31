@@ -18,12 +18,18 @@ public class HomeController : MainController
     {
         if (search != null)
         {
-            return Context.Ninjas.ToList().Where(ninja => ninja.Name.ToLower().Contains(search.ToLower())).OrderBy(ninja => ninja.Name).ToList();
-        } 
+            return Context.Ninjas
+                .OrderBy(ninja => ninja.Name)
+                .Include(ninja => ninja.Inventory)
+                .ThenInclude(item => item.Equipment)
+                .Where(ninja => ninja.Name.Contains(search))
+                .ToList();
+        }
         
         return Context.Ninjas
             .OrderBy(ninja => ninja.Name)
             .Include(ninja => ninja.Inventory)
+            .ThenInclude(item => item.Equipment)
             .ToList();
     }
 

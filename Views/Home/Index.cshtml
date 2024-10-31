@@ -34,7 +34,7 @@
                                 options.Add(ninja.Name);
                             }
                         }
-                        
+                    
                         foreach (var option in options)
                         {
                             <option value="@option"></option>
@@ -73,9 +73,7 @@
             @foreach (var ninja in Model)
             {
                 <div class="p-2 col-12 col-md-6 col-lg-4">
-                    <component type="typeof(NinjaApp.Views.Components.NinjaCard)"
-                               render-mode="ServerPrerendered"
-                               param-ninja="@ninja" />
+                    <component type="typeof(NinjaApp.Views.Components.NinjaCard)" render-mode="Static" param-Ninja="@ninja" />
                 </div>
             }
         </div>

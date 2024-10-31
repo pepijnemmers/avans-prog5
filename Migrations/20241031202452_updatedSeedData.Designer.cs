@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NinjaApp.Database;
 
@@ -11,9 +12,11 @@ using NinjaApp.Database;
 namespace NinjaApp.Migrations
 {
     [DbContext(typeof(NinjaDbContext))]
-    partial class NinjaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241031202452_updatedSeedData")]
+    partial class updatedSeedData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -55,7 +58,7 @@ namespace NinjaApp.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("7f8a5115-66f5-4916-a29d-d57dff22302f"),
+                            Id = new Guid("76d13a7a-0bfd-4830-8633-e905c42636cb"),
                             Agility = 10,
                             Category = 0,
                             Intelligence = 20,
@@ -65,7 +68,7 @@ namespace NinjaApp.Migrations
                         },
                         new
                         {
-                            Id = new Guid("0e839355-bf6f-4d99-ae97-a245dba3ae10"),
+                            Id = new Guid("8fcbb75e-15a0-47c3-a41e-f32ab5ea2772"),
                             Agility = 50,
                             Category = 0,
                             Intelligence = -50,
@@ -75,7 +78,7 @@ namespace NinjaApp.Migrations
                         },
                         new
                         {
-                            Id = new Guid("1e807e09-ed39-4b81-a3ba-6f872398cabe"),
+                            Id = new Guid("59f9994e-1693-4362-a937-6990de3d95fd"),
                             Agility = 30,
                             Category = 0,
                             Intelligence = 150,
@@ -85,7 +88,7 @@ namespace NinjaApp.Migrations
                         },
                         new
                         {
-                            Id = new Guid("3ecc1a5c-b12f-41f2-b274-c4f4d6cbd7c1"),
+                            Id = new Guid("86be4da2-2736-40d0-8822-712fe43e4150"),
                             Agility = -10,
                             Category = 1,
                             Intelligence = 40,
@@ -95,7 +98,7 @@ namespace NinjaApp.Migrations
                         },
                         new
                         {
-                            Id = new Guid("6d950c2d-1198-4579-966d-fed523b3c4d7"),
+                            Id = new Guid("ce6b3185-a903-4af0-b302-8b596aaa5e2f"),
                             Agility = 70,
                             Category = 1,
                             Intelligence = 100,
@@ -105,7 +108,7 @@ namespace NinjaApp.Migrations
                         },
                         new
                         {
-                            Id = new Guid("5e7bf1cb-d376-49f7-8e1e-72be0e8d368a"),
+                            Id = new Guid("c1629c2f-1f52-4d2d-a6ca-73b32caa516f"),
                             Agility = 90,
                             Category = 1,
                             Intelligence = -30,
@@ -115,7 +118,7 @@ namespace NinjaApp.Migrations
                         },
                         new
                         {
-                            Id = new Guid("bbe0c2c7-98bc-41c0-8062-0b03e5cae1bd"),
+                            Id = new Guid("87d92e5f-5fdd-4584-a9ec-2497bfd2741f"),
                             Agility = 20,
                             Category = 2,
                             Intelligence = 10,
@@ -125,7 +128,7 @@ namespace NinjaApp.Migrations
                         },
                         new
                         {
-                            Id = new Guid("8e8c1598-0b3f-4f18-a093-1c0190411573"),
+                            Id = new Guid("5bef76c8-3ca8-4b12-921c-3cde5fd5b25e"),
                             Agility = 100,
                             Category = 2,
                             Intelligence = 5,
@@ -135,7 +138,7 @@ namespace NinjaApp.Migrations
                         },
                         new
                         {
-                            Id = new Guid("c1000c3b-ab87-4e38-a06b-d63b1c0f53d8"),
+                            Id = new Guid("bd568a85-9bc3-4817-af3a-3f2333a9f884"),
                             Agility = 60,
                             Category = 2,
                             Intelligence = 175,
@@ -145,7 +148,7 @@ namespace NinjaApp.Migrations
                         },
                         new
                         {
-                            Id = new Guid("5e7cbe5f-ae4a-42bb-b5f7-739d975f35d1"),
+                            Id = new Guid("16d3df9f-8c95-493b-83bf-30f8814cd292"),
                             Agility = 30,
                             Category = 3,
                             Intelligence = -100,
@@ -155,7 +158,7 @@ namespace NinjaApp.Migrations
                         },
                         new
                         {
-                            Id = new Guid("687075c0-a022-4d9d-9141-1158f6c9e2f4"),
+                            Id = new Guid("af33fa1a-5213-498d-b112-8b5326332480"),
                             Agility = 200,
                             Category = 3,
                             Intelligence = 30,
@@ -165,7 +168,7 @@ namespace NinjaApp.Migrations
                         },
                         new
                         {
-                            Id = new Guid("8f2929d4-04d5-40f8-967d-eabeba53edad"),
+                            Id = new Guid("597175c5-f705-466e-90e7-59c6a7a552fe"),
                             Agility = 250,
                             Category = 3,
                             Intelligence = 80,
@@ -175,7 +178,7 @@ namespace NinjaApp.Migrations
                         },
                         new
                         {
-                            Id = new Guid("69097123-b703-4c16-9937-7eba66690b62"),
+                            Id = new Guid("cf393a15-1a25-4685-a9ac-9834275b7425"),
                             Agility = 50,
                             Category = 4,
                             Intelligence = -20,
@@ -185,7 +188,7 @@ namespace NinjaApp.Migrations
                         },
                         new
                         {
-                            Id = new Guid("779f12b9-4140-4df5-a204-19c8fc1bde18"),
+                            Id = new Guid("1c318831-e602-4736-9501-3b7955a61ac4"),
                             Agility = -25,
                             Category = 4,
                             Intelligence = 200,
@@ -195,7 +198,7 @@ namespace NinjaApp.Migrations
                         },
                         new
                         {
-                            Id = new Guid("e6f932b6-20df-4738-8637-10dc3f167d4c"),
+                            Id = new Guid("40836e54-bcdb-4992-a1f4-f680838f7d97"),
                             Agility = 300,
                             Category = 4,
                             Intelligence = -50,
@@ -205,7 +208,7 @@ namespace NinjaApp.Migrations
                         },
                         new
                         {
-                            Id = new Guid("cb6adae6-fbc0-4c41-99d7-7bfe17eca1df"),
+                            Id = new Guid("1839c1d1-ba91-470c-984c-b0be7c2e6749"),
                             Agility = 40,
                             Category = 5,
                             Intelligence = 60,
@@ -215,7 +218,7 @@ namespace NinjaApp.Migrations
                         },
                         new
                         {
-                            Id = new Guid("e69277c6-9d24-47a3-b299-bf16b5fa77ed"),
+                            Id = new Guid("3a3217e4-7fc5-44b9-ab78-7ba1d6f30059"),
                             Agility = 75,
                             Category = 5,
                             Intelligence = 180,
@@ -225,7 +228,7 @@ namespace NinjaApp.Migrations
                         },
                         new
                         {
-                            Id = new Guid("8e842fbd-e902-40c5-a3c5-0b0629eb5e8f"),
+                            Id = new Guid("56964eec-c901-4ff5-a064-5d2d5202127c"),
                             Agility = 280,
                             Category = 5,
                             Intelligence = 70,
@@ -254,38 +257,6 @@ namespace NinjaApp.Migrations
                     b.HasIndex("NinjaId");
 
                     b.ToTable("InventoryItems");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("032a5063-a31a-4436-ae54-52ef4e21285e"),
-                            EquipmentId = new Guid("7f8a5115-66f5-4916-a29d-d57dff22302f"),
-                            NinjaId = new Guid("2b0820e6-6522-4668-b1ea-dcb95cc6a772")
-                        },
-                        new
-                        {
-                            Id = new Guid("684d033e-15de-43a9-b0ba-776a934370d1"),
-                            EquipmentId = new Guid("3ecc1a5c-b12f-41f2-b274-c4f4d6cbd7c1"),
-                            NinjaId = new Guid("2b0820e6-6522-4668-b1ea-dcb95cc6a772")
-                        },
-                        new
-                        {
-                            Id = new Guid("9deb1790-0db3-4920-92af-b3171c2beac3"),
-                            EquipmentId = new Guid("bbe0c2c7-98bc-41c0-8062-0b03e5cae1bd"),
-                            NinjaId = new Guid("2b0820e6-6522-4668-b1ea-dcb95cc6a772")
-                        },
-                        new
-                        {
-                            Id = new Guid("8f1e6eac-ce01-4ca6-b82e-ec3a851aaea1"),
-                            EquipmentId = new Guid("0e839355-bf6f-4d99-ae97-a245dba3ae10"),
-                            NinjaId = new Guid("bcf24c14-c1ee-43d9-beb1-8456b687b359")
-                        },
-                        new
-                        {
-                            Id = new Guid("9531dbb6-a084-4527-a17e-f4cc61aafc78"),
-                            EquipmentId = new Guid("6d950c2d-1198-4579-966d-fed523b3c4d7"),
-                            NinjaId = new Guid("bcf24c14-c1ee-43d9-beb1-8456b687b359")
-                        });
                 });
 
             modelBuilder.Entity("NinjaApp.Models.Ninja", b =>
@@ -309,19 +280,19 @@ namespace NinjaApp.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("2b0820e6-6522-4668-b1ea-dcb95cc6a772"),
+                            Id = new Guid("a3dc9f57-3d72-4a66-adb5-84d26343742e"),
                             Gold = 2000,
                             Name = "Shadowstrike Kenji"
                         },
                         new
                         {
-                            Id = new Guid("bcf24c14-c1ee-43d9-beb1-8456b687b359"),
+                            Id = new Guid("9561f95c-7591-4b7d-af9c-247514c290ed"),
                             Gold = 500,
                             Name = "Crimson Whisper"
                         },
                         new
                         {
-                            Id = new Guid("061d78d8-cb2e-4075-b404-b48157a2d707"),
+                            Id = new Guid("348d718c-e7e0-42c9-8daa-66d0f67ee7b8"),
                             Gold = 2000,
                             Name = "Nightwind Taro"
                         });

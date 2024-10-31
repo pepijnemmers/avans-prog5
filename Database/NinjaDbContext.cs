@@ -74,12 +74,12 @@ public class NinjaDbContext : DbContext
         
         modelBuilder.Entity<Equipment>().HasData(e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, e13, e14, e15, e16, e17, e18);
         
-        // Inventory items (many-to-many)
-        var i1 = new InventoryItem() { Id = Guid.NewGuid(), Ninja = n1, Equipment = e1 };
-        var i2 = new InventoryItem() { Id = Guid.NewGuid(), Ninja = n1, Equipment = e4 };
-        var i3 = new InventoryItem() { Id = Guid.NewGuid(), Ninja = n1, Equipment = e7 };
-        var i4 = new InventoryItem() { Id = Guid.NewGuid(), Ninja = n2, Equipment = e2 };
-        var i5 = new InventoryItem() { Id = Guid.NewGuid(), Ninja = n2, Equipment = e5 };
+        // Inventory items
+        var i1 = new InventoryItem() { Id = Guid.NewGuid(), NinjaId = n1.Id, EquipmentId = e1.Id };
+        var i2 = new InventoryItem() { Id = Guid.NewGuid(), NinjaId = n1.Id, EquipmentId = e4.Id };
+        var i3 = new InventoryItem() { Id = Guid.NewGuid(), NinjaId = n1.Id, EquipmentId = e7.Id };
+        var i4 = new InventoryItem() { Id = Guid.NewGuid(), NinjaId = n2.Id, EquipmentId = e2.Id };
+        var i5 = new InventoryItem() { Id = Guid.NewGuid(), NinjaId = n2.Id, EquipmentId = e5.Id };
         
         modelBuilder.Entity<InventoryItem>().HasData(i1, i2, i3, i4, i5);
     }
