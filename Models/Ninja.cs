@@ -18,11 +18,6 @@ public class Ninja
     [Required][StringLength(255)] public string Name { get; set; } = null!;
     [Required] public int Gold { get; set; }
     [Required] public List<InventoryItem> Inventory { get; set; } = null!;
-
-    public Dictionary<SlotCategory, Equipment> GetInventory()
-    {
-        return Inventory.ToDictionary(item => item.SlotCategory, item => item.Equipment);
-    }
     
     public int GetTotalGearValue()
     {
