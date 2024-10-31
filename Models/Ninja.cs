@@ -4,16 +4,6 @@ namespace NinjaApp.Models;
 
 public class Ninja
 {
-    public Ninja() { } // Required for EF Core
-    
-    public Ninja(Guid id, string name, int gold, List<InventoryItem> inventory)
-    {
-        Id = id;
-        Name = name;
-        Gold = gold;
-        Inventory = inventory;
-    }
-    
     [Key] public Guid Id { get; set; }
     [Required][StringLength(255)] public string Name { get; set; } = null!;
     [Required] public int Gold { get; set; }

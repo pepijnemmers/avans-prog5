@@ -22,8 +22,8 @@ public class HomeController : MainController
         } 
         
         return Context.Ninjas
-            .Include(ninja => ninja.Inventory)
             .OrderBy(ninja => ninja.Name)
+            .Include(ninja => ninja.Inventory)
             .ToList();
     }
 
@@ -43,7 +43,13 @@ public class HomeController : MainController
             return Create();
         }
         
-        Ninja ninja = new(Guid.NewGuid(), name, gold, new List<InventoryItem>());
+        Ninja ninja = new()
+        {
+            Id = Guid.NewGuid(),
+            Name = name,
+            Gold = gold,
+            Inventory = new List<InventoryItem>()
+        };
         
         // add to database
         try
