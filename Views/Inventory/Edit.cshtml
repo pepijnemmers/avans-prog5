@@ -1,7 +1,7 @@
 @model Ninja
 
 @{
-    ViewBag.Title = "Ninja bewerken";
+    ViewData["Title"] = "Ninja bewerken";
     var breadcrumbs = new Dictionary<string, string>
     {
         { "Ninja's", "/ninjas" },
@@ -15,5 +15,27 @@
            param-title="@ViewData["title"]"
            param-breadcrumbs="@breadcrumbs" />
 
-<p>Ninja naam: @Model.Name</p>
-<p>Ninja id: @Model.Id</p>
+<div class="row">
+    <div class="col-12 col-md-8 pl-0">
+        <div class="custom-card">
+            <form class="card-body" method="post" asp-controller="Inventory" asp-action="Update">
+                <input type="hidden" name="Id" value="@Model.Id">
+                <div class="form-group">
+                    <label for="name">Naam</label>
+                    <input type="text" class="form-control" id="name" required value="@Model.Name"
+                           name="Name" placeholder="De naam van de ninja"
+                           oninput="document.getElementById('name-example-title').innerHTML = this.value">
+                </div>
+                <div class="d-flex gap-2 justify-content-end">
+                    <a href="/inventory/@Model.Id" class="btn btn-secondary">Terug</a>
+                    <button type="submit" class="btn btn-primary">Opslaan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-12 col-md-4">
+        <p class="fst-italic fw-bold mb-2">Voorbeeld van de Ninja</p>
+        <component type="typeof(NinjaApp.Views.Components.NinjaCard)" render-mode="Static" 
+                   param-Ninja="@Model" param-Edit="true" />
+    </div>
+</div>

@@ -9,23 +9,24 @@
     public required Dictionary<string, string> Breadcrumbs { get; set; }
 }
 
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/"><i class="fa-solid fa-home"></i></a></li>
-        
-        @foreach (var (key, value) in Breadcrumbs)
-        {
+<div class="title-and-breadcrumb mb-3">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/"><i class="fa-solid fa-home"></i></a></li>
+
+            @foreach (var (key, value) in Breadcrumbs)
+            {
             if (Breadcrumbs.Last().Key == key)
             {
-                <li class="breadcrumb-item active" aria-current="page">@key</li>
+            <li class="breadcrumb-item active" aria-current="page">@key</li>
             }
             else
             {
-                <li class="breadcrumb-item"><a href="@value">@key</a></li>
+            <li class="breadcrumb-item"><a href="@value">@key</a></li>
             }
-        }
-    </ol>
-</nav>
+            }
+        </ol>
+    </nav>
 
-<h1>@Title</h1>
-
+    <h1>@Title</h1>
+</div>

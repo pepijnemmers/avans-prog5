@@ -33,4 +33,34 @@ public class InventoryController : MainController
         
         return View(ninja);
     }
+    
+    [HttpPost]
+    public IActionResult Update(Guid id, string name)
+    {
+        // TODO - check of de ninja wordt geupdate
+        if (!ModelState.IsValid)
+        {
+            TempData["ErrorMessage"] = "Er is iets misgegaan bij het updaten van de ninja.";
+            return RedirectToAction("Index");
+        }
+        
+        var existingNinja = Context.Ninjas.Find(id);
+        if (existingNinja == null)
+        {
+            TempData["ErrorMessage"] = "De ninja kon niet gevonden worden.";
+            return RedirectToAction("Index");
+        }
+        
+        try
+        {
+            existingNinja.Name = name;
+            Context.SaveChanges();
+            TempData["SuccessMessage"] = $"De ninja {name} is succesvol bewerkt.";
+        }
+        catch
+        {
+            TempData["ErrorMessage"] = "Er is iets misgegaan bij het updaten van de ninja.";
+        }
+        return RedirectToAction("Index");
+    }
 }
