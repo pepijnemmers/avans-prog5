@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using NinjaApp.Models;
 
 namespace NinjaApp.Controllers;
@@ -8,8 +9,7 @@ public class InventoryController : MainController
     [HttpGet][Route("Inventory/{ninjaId}")][Route("Inventory/Index/{ninjaId}")]
     public IActionResult Index(Guid ninjaId)
     {
-        Ninja? ninja = Context.Ninjas.Find(ninjaId);
-        
+        Ninja ninja = GetNinjaFromId(ninjaId);
         if (ninja == null)
         {
             TempData["ErrorMessage"] = "De ninja kon niet gevonden worden.";
@@ -19,10 +19,20 @@ public class InventoryController : MainController
         return View(ninja);
     }
     
+    private Ninja GetNinjaFromId(Guid id)
+    {
+        var ninjas = Context.Ninjas
+            .OrderBy(ninja => ninja.Name)
+            .Include(ninja => ninja.Inventory)
+            .ThenInclude(item => item.Equipment)
+            .ToList();
+        return ninjas.FirstOrDefault(ninja => ninja.Id == id)!;
+    }
+    
     [HttpGet]
     public IActionResult Edit(Guid id)
     {
-        var ninja = Context.Ninjas.Find(id);
+        Ninja ninja = GetNinjaFromId(id);
         if (ninja == null)
         {
             TempData["ErrorMessage"] = "De ninja kon niet gevonden worden.";
