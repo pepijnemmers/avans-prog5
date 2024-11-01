@@ -1,6 +1,6 @@
 @code {
     [Parameter]
-    public required string Title { get; set; }
+    public string? Title { get; set; }
     
     /// <summary>
     ///     Dictionary with the breadcrumb name as key and the URL as value.
@@ -28,5 +28,8 @@
         </ol>
     </nav>
 
-    <h1>@Title</h1>
+    @if (!string.IsNullOrWhiteSpace(Title))
+    {
+        <h1>@Title</h1>
+    }
 </div>

@@ -1,24 +1,21 @@
 @model Ninja
-
 @{
     ViewBag.Title = @Model.Name;
-    var title = "Inventory";
     var breadcrumbs = new Dictionary<string, string>
     {
         { "Ninja's", "/ninjas" },
-        { Model.Name, "/inventory/" + Model.Id }
+        { "Inventory", "/inventory/" + Model.Id }
     };
 }
 
 <component type="typeof(NinjaApp.Views.Components.TitleAndBreadcrumb)"
            render-mode="Static"
-           param-title="@title"
            param-breadcrumbs="@breadcrumbs" />
            
 <div class="row mb-3">
     <div class="col-12 col-lg px-0 d-flex align-items-center gap-3">
         <h2 class="h3 m-0">@Model.Name</h2>
-        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-secondary border-0" data-bs-title="Naam bewerken" data-bs-toggle="tooltip">
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-secondary border-0" data-bs-title="Ninja bewerken" data-bs-toggle="tooltip">
             <i class="fas fa-edit"></i>
         </a>
     </div>
@@ -61,17 +58,67 @@
     </div>
 </div>
 
-
-
-<div>
-    <ul>
-        <li>
-            Main
-            <ul>
-                <li>col met 3 items</li>
-                <li>foto en "legen" knop onderaan</li>
-                <li>col met 3 items</li>
-            </ul>
-        </li>
-    </ul>
+<div class="row">
+    <div class="col-12 col-md-6 col-lg-3 order-1 ps-0">
+        <div class="row flex-column gap-2 row-p-0">
+            <div class="col">
+                <component type="typeof(NinjaApp.Views.Components.InventoryItem)"
+                           render-mode="Static"
+                           param-Ninja="@Model"
+                           param-SlotCategory="@SlotCategory.Head" />
+            </div>
+            <div class="col">
+                <component type="typeof(NinjaApp.Views.Components.InventoryItem)"
+                           render-mode="Static"
+                           param-Ninja="@Model"
+                           param-SlotCategory="@SlotCategory.Hand" />
+            </div>
+            <div class="col">
+                <component type="typeof(NinjaApp.Views.Components.InventoryItem)"
+                           render-mode="Static"
+                           param-Ninja="@Model"
+                           param-SlotCategory="@SlotCategory.Feet" />
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-12 col-lg-6 text-md-center d-lg-block order-3 order-lg-2">
+        <div class="custom-card">
+            <div class="card-body">
+                <img src="/img/ninja.png" class="img-fluid rounded" alt="@Model.Name" onerror="this.onerror=null;this.src='https://placehold.co/353x300?text=Ninja%20Manager';" />
+            </div>
+            <div class="card-footer text-center">
+                <form method="post" asp-controller="Inventory" asp-action="Clear">
+                    <input type="hidden" name="ninjaId" value="@Model.Id" />
+                    <button type="submit" class="btn btn-outline-danger" data-bs-toggle="tooltip" data-bs-title="Verwijder alle items van deze ninja">
+                        <i class="fas fa-broom"></i>
+                        Inventory leegmaken
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-12 col-md-6 col-lg-3 text-md-end order-2 order-lg-3 pe-0">
+        <div class="row flex-column gap-2 row-p-0">
+            <div class="col">
+                <component type="typeof(NinjaApp.Views.Components.InventoryItem)"
+                           render-mode="Static"
+                           param-Ninja="@Model"
+                           param-SlotCategory="@SlotCategory.Necklace" />
+            </div>
+            <div class="col">
+                <component type="typeof(NinjaApp.Views.Components.InventoryItem)"
+                           render-mode="Static"
+                           param-Ninja="@Model"
+                           param-SlotCategory="@SlotCategory.Chest" />
+            </div>
+            <div class="col">
+                <component type="typeof(NinjaApp.Views.Components.InventoryItem)"
+                           render-mode="Static"
+                           param-Ninja="@Model"
+                           param-SlotCategory="@SlotCategory.Ring" />
+            </div>
+        </div>
+    </div>
 </div>

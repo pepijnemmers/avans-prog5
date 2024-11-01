@@ -8,6 +8,11 @@ public class Ninja
     [Required][StringLength(255)] public string Name { get; set; } = null!;
     [Required] public int Gold { get; set; }
     [Required] public List<InventoryItem> Inventory { get; set; } = null!;
+
+    public InventoryItem? GetInventoryItem(SlotCategory slot)
+    {
+        return Inventory?.FirstOrDefault(item => item.Equipment.Category == slot);
+    }
     
     public int GetTotalGearValue()
     {

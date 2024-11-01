@@ -110,6 +110,9 @@ h1, h2, h3, h4, h5, h6 {
 .mt--50 {
   margin-top: -50% !important;
 }
+.row-p-0 .col {
+  padding: 0 !important;
+}
 
 /* colors */
 .text-clr-pr {
@@ -183,7 +186,6 @@ h1, h2, h3, h4, h5, h6 {
   padding: 0;
 }
 .custom-card .card-header {
-  padding: 1em;
   border-bottom: 1px solid var(--border);
 }
 .custom-card h2, .custom-card h3, .custom-card h4 {
@@ -287,4 +289,25 @@ h1, h2, h3, h4, h5, h6 {
 }
 .value-badge-long.gear-value-large {
   background-image: url(../img/badges/overall-large-long.png);
+}
+
+/* inventory item */
+.inventory-item .empty-card {
+  aspect-ratio: 1 / 0.75;
+  position: relative;
+  --inventory-item-bg-img: url(../img/gear/empty.png);
+}
+.inventory-item .empty-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--inventory-item-bg-img);
+  background-size: auto 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: .6;
+}
+.inventory-item .empty-card .card-body {
+  position: relative;
+  z-index: 2;
 }
