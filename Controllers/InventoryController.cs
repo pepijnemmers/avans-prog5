@@ -5,7 +5,7 @@ namespace NinjaApp.Controllers;
 
 public class InventoryController : MainController
 {
-    [Route("Inventory/{ninjaId}")][Route("Inventory/Index/{ninjaId}")]
+    [HttpGet][Route("Inventory/{ninjaId}")][Route("Inventory/Index/{ninjaId}")]
     public IActionResult Index(Guid ninjaId)
     {
         Ninja? ninja = Context.Ninjas.Find(ninjaId);
@@ -16,15 +16,13 @@ public class InventoryController : MainController
             return RedirectToAction("Index", "Home");
         }
         
-        // TODO - check of juiste stats worden getoond
         return View(ninja);
     }
     
-    [HttpGet][Route("Inventory/Edit/{ninjaId}")]
-    public IActionResult Edit(Guid ninjaId)
+    [HttpGet]
+    public IActionResult Edit(Guid id)
     {
-        Ninja? ninja = Context.Ninjas.Find(ninjaId);
-        
+        var ninja = Context.Ninjas.Find(id);
         if (ninja == null)
         {
             TempData["ErrorMessage"] = "De ninja kon niet gevonden worden.";
@@ -33,34 +31,36 @@ public class InventoryController : MainController
         
         return View(ninja);
     }
-    
-    [HttpPost]
-    public IActionResult Update(Guid id, string name)
+
+    [HttpPost][ValidateAntiForgeryToken]
+    public IActionResult Update(Ninja ninja, Guid id)
     {
-        // TODO - check of de ninja wordt geupdate
         if (!ModelState.IsValid)
         {
             TempData["ErrorMessage"] = "Er is iets misgegaan bij het updaten van de ninja.";
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Home");
         }
         
         var existingNinja = Context.Ninjas.Find(id);
         if (existingNinja == null)
         {
             TempData["ErrorMessage"] = "De ninja kon niet gevonden worden.";
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Home");
         }
+
+        existingNinja.Name = ninja.Name;
         
         try
         {
-            existingNinja.Name = name;
+            Context.Ninjas.Update(existingNinja);
             Context.SaveChanges();
-            TempData["SuccessMessage"] = $"De ninja {name} is succesvol bewerkt.";
+            TempData["SuccessMessage"] = $"Ninja {existingNinja.Name} is succesvol geüpdatet.";
         }
         catch
         {
             TempData["ErrorMessage"] = "Er is iets misgegaan bij het updaten van de ninja.";
         }
-        return RedirectToAction("Index");
+        
+        return RedirectToAction("Index", "Inventory", new { ninjaId = existingNinja.Id });
     }
 }

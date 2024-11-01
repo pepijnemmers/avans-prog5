@@ -62,6 +62,12 @@ public class EquipmentController : MainController
     {
         ViewBag.SlotCategories = Enum.GetValues<SlotCategory>().ToList();
         var equipment = Context.Equipments.Find(id);
+        if (equipment == null)
+        {
+            TempData["ErrorMessage"] = "Het equipment kon niet worden gevonden.";
+            return RedirectToAction("Index");
+        }
+        
         return View(equipment);
     }
 
