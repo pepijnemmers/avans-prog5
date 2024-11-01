@@ -42,6 +42,12 @@ public class EquipmentController : MainController
             ViewBag.SlotCategories = Enum.GetValues<SlotCategory>().ToList();
             return RedirectToAction("Index");
         }
+        
+        if (equipment.Price <= 0)
+        {
+            TempData["ErrorMessage"] = "De prijs van het equipment kan niet negatief of 0 zijn.";
+            return RedirectToAction("Index");
+        }
 
         try
         {
@@ -86,6 +92,12 @@ public class EquipmentController : MainController
         {
             TempData["ErrorMessage"] = "Het equipment kon niet worden gevonden.";
             return RedirectToAction("Index");
+        }
+        
+        if (equipment.Price <= 0)
+        {
+            TempData["ErrorMessage"] = "De prijs van het equipment kan niet negatief of 0 zijn.";
+            return RedirectToAction("Edit", new { id });
         }
 
         existingEquipment.Name = equipment.Name;
