@@ -51,11 +51,32 @@ public class InventoryController : MainController
             TempData["ErrorMessage"] = "De ninja kon niet gevonden worden.";
             return RedirectToAction("Index", "Home");
         }
+        
+        if (ninja.Inventory.Count == 0)
+        {
+            TempData["ErrorMessage"] = "De inventory van deze ninja is al leeg.";
+            return RedirectToAction("Index", new { ninjaId = id });
+        }
 
         try
         {
-            // TODO: refund gold from orders and then delete the orders (in transaction to prevent partial refund (using the saveChanges is a transaction))
-            // RefundGoldFromOrder(ninja.Id, equipment.Id) in main controller
+            bool refundFinished = true;
+            foreach (var inventoryItem in ninja.Inventory)
+            {
+                bool refunded = RefundGoldFromOrder(ninja, inventoryItem.Equipment);
+                if (!refunded)
+                {
+                    refundFinished = false;
+                    break;
+                }
+            }
+            
+            if (!refundFinished)
+            {
+                TempData["ErrorMessage"] = "Er is iets misgegaan bij het terugbetalen van de items.";
+                return RedirectToAction("Index", new { ninjaId = id });
+            }
+            
             ninja.Inventory.Clear();
             Context.SaveChanges();
             TempData["SuccessMessage"] = $"De inventory van {ninja.Name} is leeggemaakt.";
