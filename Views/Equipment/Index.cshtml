@@ -23,7 +23,7 @@
         </div>
     </nav>
     
-    <div class="col-12 col-sm-10 min-vh-100">
+    <div class="col-12 col-sm-10 min-vh-100 equipment">
         @foreach (var category in Model.SlotCategories)
         {
             <div class="category mb-5">
@@ -40,8 +40,11 @@
                     {
                         <div class="col-4 py-2">
                             <div class="custom-card">
-                                <div class="card-header text-center">
+                                <div class="card-header d-flex align-items-center justify-content-between">
                                     <h4 class="card-title">@equipment.Name</h4>
+                                    <a asp-controller="Equipment" asp-action="Edit" asp-route-id="@equipment.Id" class="btn btn-outline-secondary">
+                                        <i class="fa-regular fa-pen-to-square"></i>
+                                    </a>
                                 </div>
                                 <div class="card-body text-center">
                                     <div class="row">
@@ -67,18 +70,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card-footer">
-                                    <div class="row gap-2">
-                                        <button type="button" class="btn btn-outline-danger col" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" data-id="@equipment.Id" data-name="@equipment.Name">
-                                            <i class="fa-regular fa-trash-can"></i>
-                                            Verwijder
-                                        </button>
-                                        <a asp-controller="Equipment" asp-action="Edit" asp-route-id="@equipment.Id" class="btn btn-outline-secondary col">
-                                            <i class="fa-regular fa-pen-to-square"></i>
-                                            Bewerk
-                                        </a>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     }
@@ -87,38 +78,3 @@
         }
     </div>
 </div>
-
-<!-- Single Modal -->
-<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Bevestig Verwijdering</h5>
-                <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                Weet je zeker dat je <span id="modalNinjaName">dit item</span> wilt verwijderen?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuleer</button>
-                <a href="javascript:void(0)" class="btn btn-danger" id="confirmDeleteButton">Verwijder</a>
-            </div>
-        </div>
-    </div>
-</div>
-
-@section Scripts {
-    <script>
-        const confirmDeleteModal = document.getElementById('confirmDeleteModal');
-        confirmDeleteModal.addEventListener('show.bs.modal', function (event) {
-            const button = event.relatedTarget;
-            const id = button.getAttribute('data-id');
-            const name = button.getAttribute('data-name');
-            const modalTitle = document.getElementById('modalNinjaName');
-            const confirmDeleteButton = document.getElementById('confirmDeleteButton');
-
-            modalTitle.textContent = name;
-            confirmDeleteButton.setAttribute('href', '/Equipment/Delete/' + id);
-        });
-    </script>
-}

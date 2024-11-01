@@ -71,4 +71,37 @@ public class HomeController : MainController
         return RedirectToAction("Index");
     }
     
+    // WIP  : doenst work yet
+    [HttpPost][Route("Home/Delete/{id}")]
+    public IActionResult Delete(Guid id)
+    {
+        var ninja = Context.Ninjas.Find(id);
+        if (ninja == null)
+        {
+            TempData["ErrorMessage"] = "De ninja kon niet worden gevonden.";
+            return RedirectToAction("Index");
+        }
+        
+        if (ninja.Inventory.Count > 0)
+        {
+            // TODO: kijken of dit wel nodig is? De ninja kan in principe weg ook al heeft hij items in zijn inventory. Dan wel eerst de items verwijderen in deze method
+            // Bij equipment verwijderen wel de check inbouwen dat er geen ninja's zijn die dit equipment in hun inventory hebben
+            // Als wel is er een error message en wordt de equipment niet verwijderd
+            TempData["ErrorMessage"] = "De ninja heeft nog items in zijn inventory. Verwijder deze eerst.";
+            return RedirectToAction("Index");
+        }
+        
+        try
+        {
+            Context.Ninjas.Remove(ninja);
+            Context.SaveChanges();
+            TempData["SuccessMessage"] = $"Ninja {ninja.Name} is succesvol verwijderd.";
+        }
+        catch
+        {
+            TempData["ErrorMessage"] = "Er is iets misgegaan bij het verwijderen van de ninja.";
+        }
+        
+        return RedirectToAction("Index");
+    }
 }

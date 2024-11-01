@@ -26,11 +26,17 @@
                     <label for="name">Naam</label>
                     <input type="text" class="form-control" id="name" required value="@Model.Name"
                            name="Name" placeholder="De naam van de ninja"
-                           oninput="document.getElementById('name-example-title').innerHTML = this.value; document.getElementById('submit-btn').disabled = false">
+                           oninput="document.getElementById('name-example-title').innerHTML = this.value">
                 </div>
-                <div class="d-flex gap-2 justify-content-end">
-                    <a href="javascript:history.back()" class="btn btn-secondary">Terug</a>
-                    <button type="submit" class="btn btn-primary" id="submit-btn" disabled>Opslaan</button>
+                <div class="d-flex gap-2 justify-content-between">
+                    <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">
+                        <i class="fa-regular fa-trash-can"></i>
+                        Verwijder
+                    </button>
+                    <div>
+                        <a href="javascript:history.back()" class="btn btn-secondary">Terug</a>
+                        <button type="submit" class="btn btn-primary">Opslaan</button>
+                    </div>
                 </div>
             </form>
         </div>
@@ -39,5 +45,24 @@
         <p class="fst-italic fw-bold mb-2">Voorbeeld van de Ninja</p>
         <component type="typeof(NinjaApp.Views.Components.NinjaCard)" render-mode="Static" 
                    param-Ninja="@Model" param-Edit="true" />
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Bevestig Verwijdering</h5>
+                <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Weet je zeker dat je @Model.Name wilt verwijderen?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuleer</button>
+                <a asp-controller="Home" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger" id="confirmDeleteButton">Verwijder</a>
+            </div>
+        </div>
     </div>
 </div>

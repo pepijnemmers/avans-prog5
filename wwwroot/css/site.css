@@ -191,6 +191,11 @@ h1, h2, h3, h4, h5, h6 {
 .custom-card h2, .custom-card h3, .custom-card h4 {
   margin-bottom: 0;
 }
+.equipment .custom-card h2, .equipment .custom-card h3, .equipment .custom-card h4 {
+  max-width: 80%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
 .custom-card .card-footer {
   padding: 1em;
   border-top: 1px solid var(--border);

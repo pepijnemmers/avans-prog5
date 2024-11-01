@@ -68,9 +68,15 @@
                            name="Price" placeholder="De price van de equipment"
                            oninput="document.getElementById('price-example').innerHTML = this.value">
                 </div>
-                <div class="d-flex gap-2 justify-content-end">
-                    <a asp-controller="Equipment" asp-action="Index" class="btn btn-secondary">Terug</a>
-                    <button type="submit" class="btn btn-primary">Opslaan</button>
+                <div class="d-flex gap-2 justify-content-between">
+                    <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">
+                        <i class="fa-regular fa-trash-can"></i>
+                        Verwijder
+                    </button>
+                    <div>
+                        <a asp-controller="Equipment" asp-action="Index" class="btn btn-secondary">Terug</a>
+                        <button type="submit" class="btn btn-primary">Opslaan</button>
+                    </div>
                 </div>
             </form>
         </div>
@@ -78,32 +84,51 @@
     <div class="col-12 col-md-4">
         <p class="fst-italic fw-bold mb-2">Voorbeeld van de Equipment</p>
         <div class="custom-card">
-            <div class="card-header text-center">
-                <h4 class="card-title" id="name-example-title">@Model.Name</h4>&nbsp;
+            <div class="card-header d-flex">
+                <h4 class="card-title" id="name-example-title">@Model.Name</h4>
             </div>
             <div class="card-body text-center">
                 <div class="row">
                     <div class="col-12 col-sm-6">
                         <div class="value-badge strength" data-bs-toggle="tooltip" data-bs-title="Strength">
-                            <div id="strength-example">@Model.Strength</div>&nbsp;
+                            <div><span id="strength-example">@Model.Strength</span>&nbsp;</div>
                         </div>
                     </div>
                     <div class="col-12 col-sm-6">
                         <div class="value-badge intelligence" data-bs-toggle="tooltip" data-bs-title="Intelligence">
-                            <div id="intelligence-example">@Model.Intelligence</div>&nbsp;
+                            <div><span id="intelligence-example">@Model.Intelligence</span>&nbsp;</div>
                         </div>
                     </div>
                     <div class="col-12 col-sm-6">
                         <div class="value-badge agility" data-bs-toggle="tooltip" data-bs-title="Agility">
-                            <div id="agility-example">@Model.Agility</div>&nbsp;
+                            <div><span id="agility-example">@Model.Agility</span>&nbsp;</div>
                         </div>
                     </div>
                     <div class="col-12 col-sm-6">
                         <div class="value-badge price" data-bs-toggle="tooltip" data-bs-title="Price">
-                            <div id="price-example">@Model.Price</div>&nbsp;
+                            <div><span id="price-example">@Model.Price</span>&nbsp;</div>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Bevestig Verwijdering</h5>
+                <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Weet je zeker dat je @Model.Name wilt verwijderen?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuleer</button>
+                <a asp-controller="Equipment" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger" id="confirmDeleteButton">Verwijder</a>
             </div>
         </div>
     </div>
