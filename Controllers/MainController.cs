@@ -13,7 +13,13 @@ public class MainController : Controller
     {
         Context = new NinjaDbContext();
     }
-    
+
+    protected void RefundGoldFromOrder(Guid ninjaId, Guid equipmentId)
+    {
+        // TODO (return type should be bool)
+        throw new NotImplementedException();
+    }
+
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {

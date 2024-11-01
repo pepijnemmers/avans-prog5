@@ -298,7 +298,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* inventory item */
 .inventory-item .empty-card {
-  aspect-ratio: 1 / 0.75;
+  height: 295px;
   position: relative;
   --inventory-item-bg-img: url(../img/gear/empty.png);
 }

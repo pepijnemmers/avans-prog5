@@ -33,4 +33,9 @@ public class Ninja
     {
         return Inventory?.Sum(item => item.Equipment.Intelligence) ?? 0;
     }
+    
+    public int GetTotalGearPrice()
+    {
+        return Inventory?.Sum(item => item.Equipment.Price) ?? 0;
+    }
 }

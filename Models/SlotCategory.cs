@@ -12,16 +12,16 @@ public enum SlotCategory
 
 public static class SlotCategoryExtensions
 {
-    public static string ToString(this SlotCategory slotCategory)
+    public static string ToFriendlyString(this SlotCategory slotCategory)
     {
         return slotCategory switch
         {
-            SlotCategory.Head => "Hoofd",
-            SlotCategory.Chest => "Borst",
+            SlotCategory.Head => "Head",
+            SlotCategory.Chest => "Chest",
             SlotCategory.Hand => "Hand",
-            SlotCategory.Feet => "Voeten",
+            SlotCategory.Feet => "Feet",
             SlotCategory.Ring => "Ring",
-            SlotCategory.Necklace => "Ketting",
+            SlotCategory.Necklace => "Necklace",
             _ => "Onbekend"
         };
     }

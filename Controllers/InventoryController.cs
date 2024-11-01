@@ -6,19 +6,6 @@ namespace NinjaApp.Controllers;
 
 public class InventoryController : MainController
 {
-    [HttpGet][Route("Inventory/{ninjaId}")][Route("Inventory/Index/{ninjaId}")]
-    public IActionResult Index(Guid ninjaId)
-    {
-        Ninja ninja = GetNinjaFromId(ninjaId);
-        if (ninja == null)
-        {
-            TempData["ErrorMessage"] = "De ninja kon niet gevonden worden.";
-            return RedirectToAction("Index", "Home");
-        }
-        
-        return View(ninja);
-    }
-    
     private Ninja GetNinjaFromId(Guid id)
     {
         var ninjas = Context.Ninjas
@@ -29,10 +16,10 @@ public class InventoryController : MainController
         return ninjas.FirstOrDefault(ninja => ninja.Id == id)!;
     }
     
-    [HttpGet]
-    public IActionResult Edit(Guid id)
+    [HttpGet][Route("Inventory/{ninjaId}")][Route("Inventory/Index/{ninjaId}")]
+    public IActionResult Index(Guid ninjaId)
     {
-        Ninja ninja = GetNinjaFromId(id);
+        var ninja = GetNinjaFromId(ninjaId);
         if (ninja == null)
         {
             TempData["ErrorMessage"] = "De ninja kon niet gevonden worden.";
@@ -41,36 +28,42 @@ public class InventoryController : MainController
         
         return View(ninja);
     }
-
-    [HttpPost][ValidateAntiForgeryToken]
-    public IActionResult Update(Ninja ninja, Guid id)
+    
+    [HttpGet]
+    public IActionResult Edit(Guid id)
     {
-        if (!ModelState.IsValid)
+        var ninja = GetNinjaFromId(id);
+        if (ninja == null)
         {
-            TempData["ErrorMessage"] = "Er is iets misgegaan bij het updaten van de ninja.";
+            TempData["ErrorMessage"] = "De ninja kon niet gevonden worden.";
             return RedirectToAction("Index", "Home");
         }
         
-        var existingNinja = Context.Ninjas.Find(id);
-        if (existingNinja == null)
+        return View(ninja);
+    }
+    
+    [HttpGet][Route("/Inventory/ClearAll/{id:guid}")]
+    public IActionResult ClearAll(Guid id)
+    {
+        var ninja = GetNinjaFromId(id);
+        if (ninja == null)
         {
             TempData["ErrorMessage"] = "De ninja kon niet gevonden worden.";
             return RedirectToAction("Index", "Home");
         }
 
-        existingNinja.Name = ninja.Name;
-        
         try
         {
-            Context.Ninjas.Update(existingNinja);
+            // TODO: refund gold from orders and then delete the orders (in transaction to prevent partial refund (using the saveChanges is a transaction))
+            // RefundGoldFromOrder(ninja.Id, equipment.Id) in main controller
+            ninja.Inventory.Clear();
             Context.SaveChanges();
-            TempData["SuccessMessage"] = $"Ninja {existingNinja.Name} is succesvol geüpdatet.";
+            TempData["SuccessMessage"] = $"De inventory van {ninja.Name} is leeggemaakt.";
         }
         catch
         {
-            TempData["ErrorMessage"] = "Er is iets misgegaan bij het updaten van de ninja.";
+            TempData["ErrorMessage"] = "Er is iets misgegaan bij het leegmaken van de inventory.";
         }
-        
-        return RedirectToAction("Index", "Inventory", new { ninjaId = existingNinja.Id });
+        return RedirectToAction("Index", new { ninjaId = id });
     }
 }

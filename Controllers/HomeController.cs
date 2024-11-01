@@ -71,24 +71,45 @@ public class HomeController : MainController
         return RedirectToAction("Index");
     }
     
-    // WIP  : doenst work yet
-    [HttpPost][Route("Home/Delete/{id}")]
+    [HttpPost][ValidateAntiForgeryToken]
+    public IActionResult Update(Ninja ninja, Guid id)
+    {
+        if (!ModelState.IsValid)
+        {
+            TempData["ErrorMessage"] = "Er is iets misgegaan bij het updaten van de ninja.";
+            return RedirectToAction("Index");
+        }
+        
+        var existingNinja = Context.Ninjas.Find(id);
+        if (existingNinja == null)
+        {
+            TempData["ErrorMessage"] = "De ninja kon niet gevonden worden.";
+            return RedirectToAction("Index");
+        }
+
+        existingNinja.Name = ninja.Name;
+        existingNinja.Gold = ninja.Gold;
+        
+        try
+        {
+            Context.Ninjas.Update(existingNinja);
+            Context.SaveChanges();
+            TempData["SuccessMessage"] = $"Ninja {existingNinja.Name} is succesvol geüpdatet.";
+        }
+        catch
+        {
+            TempData["ErrorMessage"] = "Er is iets misgegaan bij het updaten van de ninja.";
+        }
+        return RedirectToAction("Index", "Inventory", new { ninjaId = existingNinja.Id });
+    }
+    
+    [HttpGet][Route("/Home/Delete/{id:guid}")]
     public IActionResult Delete(Guid id)
     {
         var ninja = Context.Ninjas.Find(id);
         if (ninja == null)
         {
             TempData["ErrorMessage"] = "De ninja kon niet worden gevonden.";
-            return RedirectToAction("Index");
-        }
-        
-        if (ninja.Inventory.Count > 0)
-        {
-            // TODO: kijken of dit wel nodig is? De ninja kan in principe weg ook al heeft hij items in zijn inventory. Dan wel eerst de items verwijderen in deze method
-            // Bij equipment verwijderen wel de check inbouwen dat er geen ninja's zijn die dit equipment in hun inventory hebben
-            // Als wel is er een error message en wordt de equipment niet verwijderd
-            // LEES OPDRACHT ^ staat in over geld teruggeven etc.
-            TempData["ErrorMessage"] = "De ninja heeft nog items in zijn inventory. Verwijder deze eerst.";
             return RedirectToAction("Index");
         }
         

@@ -20,34 +20,12 @@
         </a>
     </div>
     
-    <div class="col-12 col-lg px-0 d-flex flex-wrap flex-lg-nowrap gap-1">
-        <div class="d-flex align-items-center">
-            <div class="value-badge gear-value" data-bs-toggle="tooltip" data-bs-title="Gear value">
-                <div>@Model.GetTotalGearValue()</div>
-            </div>
-        </div>
-        <div class="d-flex align-items-center">
-            <div class="value-badge strength" data-bs-toggle="tooltip" data-bs-title="Strength">
-                <div>@Model.GetTotalGearStrength()</div>
-            </div>
-        </div>
-        <div class="d-flex align-items-center">
-            <div class="value-badge intelligence" data-bs-toggle="tooltip" data-bs-title="Intelligence">
-                <div>@Model.GetTotalGearIntelligence()</div>
-            </div>
-        </div>
-        <div class="d-flex align-items-center">
-            <div class="value-badge agility" data-bs-toggle="tooltip" data-bs-title="Agility">
-                <div>@Model.GetTotalGearAgility()</div>
-            </div>
-        </div>
-        <div class="d-flex align-items-center">
-            <div class="value-badge gold" data-bs-toggle="tooltip" data-bs-title="Gold">
-                <div>@Model.Gold</div>
-            </div>
+    <div class="col-12 col-lg d-flex flex-lg-nowrap flex-wrap gap-1 justify-content-end px-0">
+        <div class="value-badge gold m-0" data-bs-toggle="tooltip" data-bs-title="Gold">
+            <div>@Model.Gold</div>
         </div>
         <div class="vr mx-2 d-none d-lg-block"></div>
-        <a class="align-items-center btn btn-primary d-flex justify-content-center gap-2 px-3 rounded-pill w-100" 
+        <a class="align-items-center btn btn-primary d-flex gap-2 justify-content-center px-3 rounded-pill" 
            data-bs-toggle="tooltip" data-bs-title="Open de shop voor deze ninja"
            asp-controller="Shop" asp-action="Index" asp-route-ninjaId="@Model.Id">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="20">
@@ -83,18 +61,34 @@
     </div>
     
     <div class="col-12 col-lg-6 text-md-center d-lg-block order-3 order-lg-2">
-        <div class="custom-card">
+        <div class="custom-card sticky-top" style="top: 6rem">
+            <div class="card-header d-flex flex-wrap justify-content-center" style="column-gap: 1em;">
+                <div class="value-badge gear-value" data-bs-toggle="tooltip" data-bs-title="Gear value">
+                    <div>@Model.GetTotalGearValue()</div>
+                </div>
+                <div class="value-badge strength" data-bs-toggle="tooltip" data-bs-title="Strength">
+                    <div>@Model.GetTotalGearStrength()</div>
+                </div>
+                <div class="value-badge intelligence" data-bs-toggle="tooltip" data-bs-title="Intelligence">
+                    <div>@Model.GetTotalGearIntelligence()</div>
+                </div>
+                <div class="value-badge agility" data-bs-toggle="tooltip" data-bs-title="Agility">
+                    <div>@Model.GetTotalGearAgility()</div>
+                </div>
+                <div class="value-badge price" data-bs-toggle="tooltip" data-bs-title="Huidige waarde van inventory">
+                    <div>@Model.GetTotalGearPrice()</div>
+                </div>
+            </div>
             <div class="card-body">
-                <img src="/img/ninja.png" class="img-fluid rounded" alt="@Model.Name" onerror="this.onerror=null;this.src='https://placehold.co/353x300?text=Ninja%20Manager';" />
+                <img src="/img/ninja.png" class="img-fluid rounded w-50" alt="@Model.Name" onerror="this.onerror=null;this.src='https://placehold.co/353x300?text=Ninja%20Manager';"/>
             </div>
             <div class="card-footer text-center">
-                <form method="post" asp-controller="Inventory" asp-action="Clear">
-                    <input type="hidden" name="ninjaId" value="@Model.Id" />
-                    <button type="submit" class="btn btn-outline-danger" data-bs-toggle="tooltip" data-bs-title="Verwijder alle items van deze ninja">
+                <div data-bs-toggle="tooltip" data-bs-title="Verwijder alle items van deze ninja">
+                    <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">
                         <i class="fas fa-broom"></i>
                         Inventory leegmaken
                     </button>
-                </form>
+                </div>
             </div>
         </div>
     </div>
@@ -118,6 +112,33 @@
                            render-mode="Static"
                            param-Ninja="@Model"
                            param-SlotCategory="@SlotCategory.Ring" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Bevestig leegmaken inventory</h5>
+                <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Weet je zeker dat je de inventory van @Model.Name wilt leegmaken? <br/>
+                De ninja krijgt het betaalde goud terug.
+                
+                <p class="text-danger mt-3">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Deze actie kan niet ongedaan worden gemaakt!
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuleer</button>
+                <a asp-controller="Inventory" asp-action="ClearAll" asp-route-id="@Model.Id" class="btn btn-danger" id="confirmDeleteButton">
+                    Inventory leegmaken
+                </a>
             </div>
         </div>
     </div>
