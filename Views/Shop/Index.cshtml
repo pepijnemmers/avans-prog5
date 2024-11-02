@@ -1,5 +1,6 @@
+@model NinjaApp.ViewModels.ShopViewModel
 @{
-    ViewBag.Title = "Shop";
+    ViewData["Title"] = "Shop";
     var breadcrumbs = new Dictionary<string, string>
     {
         { "Shop", "/shop" }
@@ -8,5 +9,261 @@
 
 <component type="typeof(NinjaApp.Views.Components.TitleAndBreadcrumb)"
            render-mode="Static"
-           param-title="@ViewData["title"]"
            param-breadcrumbs="@breadcrumbs" />
+
+<div class="d-flex justify-content-between align-items-center">
+    <h1>@ViewData["Title"]</h1>
+    <div class="d-flex align-items-center gap-2">
+        @if (Model.Ninja != null)
+        {
+            <div class="value-badge gold" data-bs-toggle="tooltip" data-bs-title="Gold">
+                <div>@Model.Ninja.Gold</div>
+            </div>
+        }
+        @if (Model.AllNinjas != null)
+        {
+            <div>
+                <select id="selectedNinja" class="form-select" onchange="redirectToShop(this)" data-bs-target="tooltip" title="Selecteer een ninja">
+                    <option value="" disabled selected="@(Model.Ninja == null ? "true" : "false")">Selecteer een ninja</option>
+                    @foreach (var ninja in Model.AllNinjas)
+                    {
+                    if (Model.Ninja?.Id == ninja.Id)
+                    {
+                    <option value="@ninja.Id" selected>@ninja.Name</option>
+                    }
+                    else
+                    {
+                    <option value="@ninja.Id">@ninja.Name</option>
+                    }
+                    }
+                </select>
+            </div>
+        }
+        @if (Model.Ninja != null)
+        {
+            <a href="/inventory/@Model.Ninja.Id" class="btn btn-primary">Bekijk Ninja</a>
+        }
+    </div>
+</div>
+<p class="mb-3">Koop of verkoop hier equipment voor één van je ninja's.</p>
+
+@if (Model.Ninja == null)
+{
+    <div class="custom-card">
+        <div class="card-body">
+            <p class="py-5 m-0 text-center text-clr-ter">
+                <i class="fas fa-info-circle me-1"></i>
+                @if (Model.AllNinjas == null || Model.AllNinjas.Count == 0)
+                {
+                    <span>Er zijn nog geen ninja's aangemaakt. Klik <a asp-controller="Home" asp-action="Create">hier</a> om een nieuwe ninja aan te maken.</span>
+                }
+                else
+                {
+                    <span>Er is nog geen ninja geselecteerd. Selecteer in het dropdown menu hierboven een ninja.</span>
+                }
+            </p>
+        </div>
+    </div>
+}
+else
+{
+<ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
+    @foreach (var category in Model.SlotCategories)
+    {
+        <li class="nav-item" role="presentation">
+            <button class="nav-link @(category == (Model.SelectedSlotCategory ?? SlotCategory.Head) ? "active" : "")" id="home-tab"
+                    data-bs-toggle="tab" data-bs-target="#@category-tab-pane" type="button"
+                    role="tab" aria-selected="true">
+                @category.ToFriendlyString()
+            </button>
+        </li>
+    }
+</ul>
+
+@* TODO omzetten naar component / cleanup *@
+<div class="tab-content" id="myTabContent">
+    @foreach (var category in Model.SlotCategories)
+    {
+        <div class="tab-pane fade @(category == (Model.SelectedSlotCategory ?? SlotCategory.Head) ? "show active" : "")" id="@category-tab-pane" role="tabpanel">
+            <div class="row row-p-0 px-0 gap-2 flex- shop-item">
+                @* current equipment for this category *@
+                <div class="col-3 border-end">
+                    <div class="sticky-top" style="top: 6rem; padding-right: 1rem !important">
+                        @{
+                            var currentEquipment = Model.Ninja.Inventory.FirstOrDefault(e => e.Equipment.Category == category)?.Equipment;
+                        }
+
+                        @if (currentEquipment == null)
+                        {
+                            <p class="fw-bold mb-2">Huidige Equipment</p>
+                            <div class="custom-card w-100 empty-card d-flex align-items-end border-3" style="--inventory-item-bg-img: url('@($"../img/gear/{category.ToString()}.png")')">
+                                <div class="card-body text-center">
+                                    Geen huidige equipment voor deze categorie
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <p class="fw-bold mb-2">Huidige Equipment</p>
+                            <div class="custom-card border-3">
+                            <div class="card-header d-flex align-items-center justify-content-between">
+                                <h4 class="card-title text-start">@currentEquipment.Name</h4>
+                                <a asp-controller="Equipment" asp-action="Edit" asp-route-id="@currentEquipment.Id" class="btn btn-outline-secondary"
+                                   data-bs-target="tooltip" data-bs-title="Bewerk equipment">
+                                    <i class="fa-regular fa-pen-to-square"></i>
+                                </a>
+                            </div>
+                            <div class="card-body text-center">
+                                <div class="row">
+                                    <div class="col-12 col-sm-6">
+                                        <div class="value-badge strength" data-bs-toggle="tooltip" data-bs-title="Strength">
+                                            <div>@currentEquipment.Strength</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-6">
+                                        <div class="value-badge intelligence" data-bs-toggle="tooltip" data-bs-title="Intelligence">
+                                            <div>@currentEquipment.Intelligence</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-6">
+                                        <div class="value-badge agility" data-bs-toggle="tooltip" data-bs-title="Agility">
+                                            <div>@currentEquipment.Agility</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-6">
+                                        <div class="value-badge price" data-bs-toggle="tooltip" data-bs-title="Huidige prijs">
+                                            <div>@currentEquipment.Price</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                @{ var sellPrice = Model.Orders?.Find(o => o.EquipmentId == currentEquipment.Id)?.Price; }
+
+                                @if (sellPrice != null)
+                                {
+                                <div data-bs-toggle="tooltip" data-bs-title="Verkoop voor de prijs waarvoor je het hebt gekocht">
+                                    <button type="button" class="btn btn-outline-danger w-100" data-bs-target="#sellModal" data-bs-toggle="modal">
+                                        Verkopen voor $@sellPrice goud
+                                    </button>
+                                </div>
+                                }
+                                else
+                                {
+                                <button type="button" class="btn btn-outline-danger w-100" data-bs-toggle="tooltip" data-bs-title="Er is iets misgegaan, verkoop niet mogelijk">
+                                    Verkoop niet mogelijk
+                                </button>
+                                }
+                            </div>
+                        </div>
+
+                            <!-- sell Modal -->
+                            <div class="modal fade" id="sellModal" tabindex="-1" aria-labelledby="sellModal" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Bevestig verkoop</h5>
+                                            <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Weet je zeker dat je <strong>@currentEquipment.Name</strong> wilt verkopen voor <strong>$@sellPrice</strong> goud?
+
+                                            <p class="text-danger mt-3">
+                                                <i class="fas fa-exclamation-triangle"></i>
+                                                Deze actie kan niet ongedaan worden gemaakt!
+                                            </p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuleer</button>
+                                            <a asp-controller="Shop" asp-action="Sell" asp-route-ninjaId="@Model.Ninja.Id" asp-route-equipmentId="@currentEquipment.Id"
+                                               class="btn btn-danger" id="confirmDeleteButton">Verkoop</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+                @* list with all equipment for this category *@
+                @if (Model.AllEquipment == null)
+                {
+                    <div class="col">
+                        <div class="custom-card w-100 empty-card d-flex align-items-center">
+                            <div class="card-body text-center">
+                                <i class="fas fa-info-circle me-1"></i>
+                                Er zijn nog geen equipments aangemaakt voor deze categorie. <br/>
+                                Klik <a asp-controller="Equipment" asp-action="Create">hier</a> om een nieuwe equipment aan te maken.
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="col row p-0" style="margin-right: -0.75em;">
+                        <p class="fw-bold mb-2">Alle Equipment van de categorie @category.ToFriendlyString()</p>
+                        @foreach (var equip in Model.AllEquipment.Where(e => e.Category == category))
+                        {
+                            <div class="col-4 mb-2">
+                                <div class="custom-card">
+                                    <div class="card-header d-flex align-items-center justify-content-between">
+                                        <h4 class="card-title">@equip.Name</h4>
+                                        <a asp-controller="Equipment" asp-action="Edit" asp-route-id="@equip.Id" class="btn btn-outline-secondary"
+                                           data-bs-target="tooltip" data-bs-title="Bewerk equipment">
+                                            <i class="fa-regular fa-pen-to-square"></i>
+                                        </a>
+                                    </div>
+                                    <div class="card-body text-center">
+                                        <div class="row">
+                                            <div class="col-12 col-sm-6">
+                                                <div class="value-badge strength" data-bs-toggle="tooltip" data-bs-title="Strength">
+                                                    <div>@equip.Strength</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-sm-6">
+                                                <div class="value-badge intelligence" data-bs-toggle="tooltip" data-bs-title="Intelligence">
+                                                    <div>@equip.Intelligence</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-sm-6">
+                                                <div class="value-badge agility" data-bs-toggle="tooltip" data-bs-title="Agility">
+                                                    <div>@equip.Agility</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-sm-6">
+                                                <div class="value-badge price" data-bs-toggle="tooltip" data-bs-title="Huidige prijs">
+                                                    <div>@equip.Price</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer">
+                                        <div data-bs-toggle="tooltip" data-bs-title="Koop deze equipment">
+                                            <a asp-controller="Shop" asp-action="Buy" asp-route-ninjaId="@Model.Ninja.Id" asp-route-equipmentId="@equip.Id" class="btn btn-outline-primary w-100">
+                                                Koop voor $@equip.Price goud
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    }
+</div>
+}
+
+
+@section Scripts {
+    <script>
+        function redirectToShop(selectElement) {
+            let ninjaId = selectElement.value;
+            if (ninjaId) {
+                window.location.href = '/shop?ninjaId=' + ninjaId;
+            }
+        }
+    </script>
+}
+

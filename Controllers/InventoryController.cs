@@ -6,16 +6,6 @@ namespace NinjaApp.Controllers;
 
 public class InventoryController : MainController
 {
-    private Ninja GetNinjaFromId(Guid id)
-    {
-        var ninjas = Context.Ninjas
-            .OrderBy(ninja => ninja.Name)
-            .Include(ninja => ninja.Inventory)
-            .ThenInclude(item => item.Equipment)
-            .ToList();
-        return ninjas.FirstOrDefault(ninja => ninja.Id == id)!;
-    }
-    
     [HttpGet][Route("Inventory/{ninjaId}")][Route("Inventory/Index/{ninjaId}")]
     public IActionResult Index(Guid ninjaId)
     {
