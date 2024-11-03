@@ -83,5 +83,14 @@ public class NinjaDbContext : DbContext
         var i5 = new InventoryItem() { Id = Guid.NewGuid(), NinjaId = n2.Id, EquipmentId = e5.Id };
         
         modelBuilder.Entity<InventoryItem>().HasData(i1, i2, i3, i4, i5);
+        
+        // Orders (connected with inventory items)
+        var o1 = new Order() { Id = Guid.NewGuid(), NinjaId = n1.Id, EquipmentId = e1.Id, Price = e1.Price };
+        var o2 = new Order() { Id = Guid.NewGuid(), NinjaId = n1.Id, EquipmentId = e4.Id, Price = e4.Price };
+        var o3 = new Order() { Id = Guid.NewGuid(), NinjaId = n1.Id, EquipmentId = e7.Id, Price = e7.Price };
+        var o4 = new Order() { Id = Guid.NewGuid(), NinjaId = n2.Id, EquipmentId = e2.Id, Price = e2.Price };
+        var o5 = new Order() { Id = Guid.NewGuid(), NinjaId = n2.Id, EquipmentId = e5.Id, Price = e5.Price };
+        
+        modelBuilder.Entity<Order>().HasData(o1, o2, o3, o4, o5);
     }
 }
