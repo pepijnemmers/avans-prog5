@@ -87,7 +87,7 @@
         </div>
 
         @* list with all equipment for this category *@
-        @if (AllEquipment == null || AllEquipment.Count == 0)
+        @if (AllEquipment?.Where(e => e.Category == Category) == null || AllEquipment.Any(e => e.Category == Category) == false)
         {
             <div class="col">
                 <p class="fw-bold mb-2">Alle Equipment van de categorie @Category.ToFriendlyString()</p>

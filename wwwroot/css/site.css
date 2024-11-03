@@ -40,7 +40,7 @@ html {
   }
 }
 
-a, button, .btn, .link {
+a, button, .btn, .link, select {
   cursor: url("../img/pointer.png"), pointer !important;
 }
 input {

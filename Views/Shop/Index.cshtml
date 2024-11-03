@@ -30,7 +30,7 @@
                 <div>@Model.Ninja.Gold</div>
             </div>
         }
-        @if (Model.AllNinjas != null)
+        @if (Model.AllNinjas != null && Model.AllNinjas.Count > 0)
         {
             <div>
                 <select id="selectedNinja" class="form-select" onchange="redirectToShop(this)" data-bs-target="tooltip" title="Selecteer een ninja">
