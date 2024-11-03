@@ -6,6 +6,11 @@ namespace NinjaApp.Controllers;
 
 public class HomeController : MainController
 {
+    /// <summary>
+    ///     Get all ninjas from the database and return them to the view.
+    /// </summary>
+    /// <param name="search"> The search query to filter ninjas by name. </param>
+    /// <returns> The view with all ninjas. </returns>
     [Route("")][Route("home")][Route("home/index")][Route("ninjas")]
     public IActionResult Index(string? search = null)
     {
@@ -14,6 +19,11 @@ public class HomeController : MainController
         return View(ninjas);
     }
     
+    /// <summary>
+    ///     Get all ninjas from the database.
+    /// </summary>
+    /// <param name="search"> The search query to filter ninjas by name. </param>
+    /// <returns> A list of ninjas. </returns>
     private List<Ninja> GetNinjas(string? search = null)
     {
         if (search != null)
@@ -33,12 +43,22 @@ public class HomeController : MainController
             .ToList();
     }
 
+    /// <summary>
+    ///     Get create view for a new ninja.
+    /// </summary>
+    /// <returns></returns>
     [HttpGet][Route("ninjas/new")]
     public IActionResult Create()
     {
         return View();
     }
     
+    /// <summary>
+    ///     Create a new ninja and add it to the database.
+    /// </summary>
+    /// <param name="name"> The name of the ninja. </param>
+    /// <param name="gold"> The gold value of the ninja. </param>
+    /// <returns> Redirect to the index view. </returns>
     [HttpPost][Route("ninjas/new")]
     public IActionResult Create(string name, int gold)
     {
@@ -71,6 +91,12 @@ public class HomeController : MainController
         return RedirectToAction("Index");
     }
     
+    /// <summary>
+    ///     Update a ninja in the database.
+    /// </summary>
+    /// <param name="ninja"> The updated ninja. </param>
+    /// <param name="id"> The id of the ninja to update. </param>
+    /// <returns> Redirect to the index view. </returns>
     [HttpPost][ValidateAntiForgeryToken]
     public IActionResult Update(Ninja ninja, Guid id)
     {
@@ -103,6 +129,11 @@ public class HomeController : MainController
         return RedirectToAction("Index", "Inventory", new { ninjaId = existingNinja.Id });
     }
     
+    /// <summary>
+    ///     Delete a ninja from the database.
+    /// </summary>
+    /// <param name="id"> The id of the ninja to delete. </param>
+    /// <returns> Redirect to the index view. </returns>
     [HttpGet][Route("/Home/Delete/{id:guid}")]
     public IActionResult Delete(Guid id)
     {

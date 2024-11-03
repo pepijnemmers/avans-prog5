@@ -12,6 +12,11 @@ public enum SlotCategory
 
 public static class SlotCategoryExtensions
 {
+    /// <summary>
+    ///     Converts the SlotCategory enum to a friendly string.
+    /// </summary>
+    /// <param name="slotCategory"> The SlotCategory enum. </param>
+    /// <returns> A friendly string representation of the SlotCategory enum. </returns>
     public static string ToFriendlyString(this SlotCategory slotCategory)
     {
         return slotCategory switch

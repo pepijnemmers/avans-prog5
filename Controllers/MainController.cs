@@ -8,13 +8,14 @@ namespace NinjaApp.Controllers;
 
 public class MainController : Controller
 {
-    protected readonly NinjaDbContext Context;
-    
-    public MainController()
-    {
-        Context = new NinjaDbContext();
-    }
+    protected readonly NinjaDbContext Context = new();
 
+    /// <summary>
+    ///     Refunds the gold from an order and removes the order from the database.
+    /// </summary>
+    /// <param name="ninjaId"> The id of the ninja. </param>
+    /// <param name="equipmentId"> The id of the equipment. </param>
+    /// <returns> True if the refund was successful, false if not. </returns>
     protected bool RefundGoldFromOrder(Guid ninjaId, Guid equipmentId)
     {
         var order = Context.Orders.FirstOrDefault(o => o.NinjaId == ninjaId && o.EquipmentId == equipmentId);
@@ -36,6 +37,11 @@ public class MainController : Controller
         }
     }
     
+    /// <summary>
+    ///     Gets a ninja from the database by id.
+    /// </summary>
+    /// <param name="id"> The id of the ninja. </param>
+    /// <returns> The ninja if found, null if not. </returns>
     protected Ninja GetNinjaFromId(Guid id)
     {
         var ninjas = Context.Ninjas

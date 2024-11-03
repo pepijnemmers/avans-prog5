@@ -8,6 +8,12 @@ namespace NinjaApp.Controllers;
 
 public class ShopController : MainController
 {
+    /// <summary>
+    ///     Show the shop page.
+    /// </summary>
+    /// <param name="ninjaId"> The id of the ninja. </param>
+    /// <param name="category"> The category tab to show. </param>
+    /// <returns> The shop view. </returns>
     public IActionResult Index(Guid ninjaId, SlotCategory? category = null)
     {
         var ninja = GetNinjaFromId(ninjaId);
@@ -38,6 +44,12 @@ public class ShopController : MainController
         return View(viewModel);
     }
 
+    /// <summary>
+    ///     Buy equipment for a ninja.
+    /// </summary>
+    /// <param name="ninjaId"> The id of the ninja. </param>
+    /// <param name="equipmentId"> The id of the equipment. </param>
+    /// <returns> Redirect to the shop index. </returns>
     public IActionResult Buy(Guid ninjaId, Guid equipmentId)
     {
         var ninja = GetNinjaFromId(ninjaId);
@@ -97,6 +109,13 @@ public class ShopController : MainController
         return RedirectToAction("Index", new { ninjaId, equipment?.Category });
     }
     
+    /// <summary>
+    ///    Sell equipment for a ninja.
+    /// </summary>
+    /// <param name="ninjaId"> The id of the ninja. </param>
+    /// <param name="equipmentId"> The id of the equipment. </param>
+    /// <returns> Redirect to the shop index. </returns>
+    /// <exception cref="Exception"> Thrown when the refunding of the gold fails. </exception>
     public IActionResult Sell(Guid ninjaId, Guid equipmentId)
     {
         var ninja = GetNinjaFromId(ninjaId);

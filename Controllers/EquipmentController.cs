@@ -7,6 +7,10 @@ namespace NinjaApp.Controllers;
 
 public class EquipmentController : MainController
 {
+    /// <summary>
+    ///     Returns the index view with a list of all equipment.
+    /// </summary>
+    /// <returns> The index view with a list of all equipment. </returns>
     public IActionResult Index()
     {
         var viewModel = new EquipmentViewModel()
@@ -18,11 +22,20 @@ public class EquipmentController : MainController
         return View(viewModel);
     }
 
+    /// <summary>
+    ///     Returns a list of all equipment.
+    /// </summary>
+    /// <returns> A list of all equipment. </returns>
     private List<Equipment> GetEquipments()
     {
         return Context.Equipments.ToList();
     }
 
+    /// <summary>
+    ///     Returns the create view with a list of all slot categories.
+    /// </summary>
+    /// <param name="category"> The selected slot category. </param>
+    /// <returns> The create view with a list of all slot categories. </returns>
     [HttpGet][Route("/equipment/new")]
     public IActionResult Create(string? category = null)
     {
@@ -34,6 +47,11 @@ public class EquipmentController : MainController
         return View();
     }
     
+    /// <summary>
+    ///     Creates a new equipment.
+    /// </summary>
+    /// <param name="equipment"> The equipment to create. </param>
+    /// <returns> A redirect to the index view. </returns>
     [HttpPost][Route("/equipment/new")]
     public IActionResult Create(Equipment equipment)
     {
@@ -64,6 +82,11 @@ public class EquipmentController : MainController
         return RedirectToAction("Index");
     }
     
+    /// <summary>
+    ///     Returns the edit view with a list of all slot categories.
+    /// </summary>
+    /// <param name="id"> The id of the equipment to edit. </param>
+    /// <returns> The edit view with a list of all slot categories. </returns>
     [HttpGet]
     public IActionResult Edit(Guid id)
     {
@@ -85,6 +108,12 @@ public class EquipmentController : MainController
         return View(viewModel);
     }
 
+    /// <summary>
+    ///     Updates an existing equipment.
+    /// </summary>
+    /// <param name="equipment"> The updated equipment. </param>
+    /// <param name="id"> The id of the equipment to update. </param>
+    /// <returns> A redirect to the index view. </returns>
     [HttpPost]
     public IActionResult Update(Equipment equipment, Guid id)
     {
@@ -128,6 +157,12 @@ public class EquipmentController : MainController
         return RedirectToAction("Index");
     }
     
+    /// <summary>
+    ///     Deletes an existing equipment.
+    /// </summary>
+    /// <param name="id"> The id of the equipment to delete. </param>
+    /// <returns> A redirect to the index view. </returns>
+    /// <exception cref="Exception"> Thrown when the refund of gold from an order fails. </exception>
     [HttpGet][Route("/Equipment/Delete/{id:guid}")]
     public IActionResult Delete(Guid id)
     {

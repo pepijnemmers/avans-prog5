@@ -6,6 +6,11 @@ namespace NinjaApp.Controllers;
 
 public class InventoryController : MainController
 {
+    /// <summary>
+    ///     Shows the inventory of a ninja.
+    /// </summary>
+    /// <param name="ninjaId"> The id of the ninja. </param>
+    /// <returns> The view with the inventory of the ninja. </returns>
     [HttpGet][Route("Inventory/{ninjaId}")][Route("Inventory/Index/{ninjaId}")]
     public IActionResult Index(Guid ninjaId)
     {
@@ -19,6 +24,11 @@ public class InventoryController : MainController
         return View(ninja);
     }
     
+    /// <summary>
+    ///     Edit the name and gold of a ninja.
+    /// </summary>
+    /// <param name="id"> The id of the ninja. </param>
+    /// <returns> The view with the form to edit the ninja. </returns>
     [HttpGet]
     public IActionResult Edit(Guid id)
     {
@@ -32,6 +42,11 @@ public class InventoryController : MainController
         return View(ninja);
     }
     
+    /// <summary>
+    ///     Clear the inventory of a ninja.
+    /// </summary>
+    /// <param name="id"> The id of the ninja. </param>
+    /// <returns> The view with the inventory of the ninja. </returns>
     [HttpGet][Route("/Inventory/ClearAll/{id:guid}")]
     public IActionResult ClearAll(Guid id)
     {
