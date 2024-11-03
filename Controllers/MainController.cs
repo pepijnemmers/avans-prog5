@@ -15,12 +15,12 @@ public class MainController : Controller
         Context = new NinjaDbContext();
     }
 
-    protected bool RefundGoldFromOrder(Ninja ninja, Equipment equipment)
+    protected bool RefundGoldFromOrder(Guid ninjaId, Guid equipmentId)
     {
-        var order = Context.Orders.FirstOrDefault(o => o.NinjaId == ninja.Id && o.EquipmentId == equipment.Id);
+        var order = Context.Orders.FirstOrDefault(o => o.NinjaId == ninjaId && o.EquipmentId == equipmentId);
         if (order == null) return false;
         
-        var ninjaFromDb = Context.Ninjas.FirstOrDefault(n => n.Id == ninja.Id);
+        var ninjaFromDb = Context.Ninjas.FirstOrDefault(n => n.Id == ninjaId);
         if (ninjaFromDb == null) return false;
         
         try

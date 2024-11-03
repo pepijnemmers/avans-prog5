@@ -132,6 +132,16 @@ public class EquipmentController : MainController
 
         try
         {
+            var orders = Context.Orders.Where(o => o.EquipmentId == id).ToList();
+            foreach (var order in orders)
+            {
+                bool refundFinished = RefundGoldFromOrder(order.NinjaId, id);
+                if (!refundFinished)
+                {
+                    throw new Exception();
+                }
+            }
+            
             Context.Equipments.Remove(equipment);
             Context.SaveChanges();
             TempData["SuccessMessage"] = $"Equipment {equipment.Name} is succesvol verwijderd.";

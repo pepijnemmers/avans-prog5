@@ -53,7 +53,7 @@ public class InventoryController : MainController
             bool refundFinished = true;
             foreach (var inventoryItem in ninja.Inventory)
             {
-                bool refunded = RefundGoldFromOrder(ninja, inventoryItem.Equipment);
+                bool refunded = RefundGoldFromOrder(ninja.Id, inventoryItem.Equipment.Id);
                 if (!refunded)
                 {
                     refundFinished = false;
