@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using NinjaApp.Models.Enums;
 
 namespace NinjaApp.Models;
 

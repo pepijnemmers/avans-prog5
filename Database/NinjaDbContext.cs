@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using NinjaApp.Models;
+using NinjaApp.Models.Enums;
 
 namespace NinjaApp.Database;
 

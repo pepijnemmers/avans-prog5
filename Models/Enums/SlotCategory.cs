@@ -1,4 +1,4 @@
-namespace NinjaApp.Models;
+namespace NinjaApp.Models.Enums;
 
 public enum SlotCategory
 {

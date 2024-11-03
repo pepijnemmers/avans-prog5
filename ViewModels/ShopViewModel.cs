@@ -1,4 +1,5 @@
 using NinjaApp.Models;
+using NinjaApp.Models.Enums;
 
 namespace NinjaApp.ViewModels;
 

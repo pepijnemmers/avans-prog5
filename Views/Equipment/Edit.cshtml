@@ -1,4 +1,4 @@
-@model Equipment
+@model NinjaApp.ViewModels.EquipmentEditViewModel
 @{
     ViewData["Title"] = "Equipment bewerken";
     var breadcrumbs = new Dictionary<string, string>
@@ -17,10 +17,10 @@
     <div class="col-12 col-md-8 ps-0">
         <div class="custom-card">
             <form class="card-body" method="post" asp-controller="Equipment" asp-action="Update">
-                <input type="hidden" name="Id" value="@Model.Id">
+                <input type="hidden" name="Id" value="@Model.Equipment.Id">
                 <div class="form-group">
                     <label for="name">Naam</label>
-                    <input type="text" class="form-control" id="name" required value="@Model.Name"
+                    <input type="text" class="form-control" id="name" required value="@Model.Equipment.Name"
                            name="Name" placeholder="De naam voor de equipment"
                            oninput="document.getElementById('name-example-title').innerHTML = this.value">
                 </div>
@@ -32,7 +32,7 @@
                         {
                             @foreach (var category in ViewBag.SlotCategories)
                             {
-                                @if (category == @Model.Category)
+                                @if (category == @Model.Equipment.Category)
                                 {
                                     <option value="@category" selected>@category</option>
                                 }
@@ -46,25 +46,25 @@
                 </div>
                 <div class="form-group">
                     <label for="strength">Strength</label>
-                    <input type="number" class="form-control" id="strength" required max="99999" value="@Model.Strength"
+                    <input type="number" class="form-control" id="strength" required max="99999" value="@Model.Equipment.Strength"
                            name="Strength" placeholder="De strength van de equipment"
                            oninput="document.getElementById('strength-example').innerHTML = this.value">
                 </div>
                 <div class="form-group">
                     <label for="intelligence">Intelligence</label>
-                    <input type="number" class="form-control" id="intelligence" required max="99999" value="@Model.Intelligence"
+                    <input type="number" class="form-control" id="intelligence" required max="99999" value="@Model.Equipment.Intelligence"
                            name="Intelligence" placeholder="De intelligence van de equipment"
                            oninput="document.getElementById('intelligence-example').innerHTML = this.value">
                 </div>
                 <div class="form-group">
                     <label for="agility">Agility</label>
-                    <input type="number" class="form-control" id="agility" required max="99999" value="@Model.Agility"
+                    <input type="number" class="form-control" id="agility" required max="99999" value="@Model.Equipment.Agility"
                            name="Agility" placeholder="De agility van de equipment"
                            oninput="document.getElementById('agility-example').innerHTML = this.value">
                 </div>
                 <div class="form-group">
                     <label for="price">Price</label>
-                    <input type="number" class="form-control" id="price" required min="1" max="99999" value="@Model.Price"
+                    <input type="number" class="form-control" id="price" required min="1" max="99999" value="@Model.Equipment.Price"
                            name="Price" placeholder="De price van de equipment"
                            oninput="document.getElementById('price-example').innerHTML = this.value">
                 </div>
@@ -85,28 +85,28 @@
         <p class="fst-italic fw-bold mb-2">Voorbeeld van de Equipment</p>
         <div class="custom-card">
             <div class="card-header d-flex">
-                <h4 class="card-title" id="name-example-title">@Model.Name</h4>
+                <h4 class="card-title" id="name-example-title">@Model.Equipment.Name</h4>
             </div>
             <div class="card-body text-center">
                 <div class="row">
                     <div class="col-12 col-sm-6">
                         <div class="value-badge strength" data-bs-toggle="tooltip" data-bs-title="Strength">
-                            <div><span id="strength-example">@Model.Strength</span>&nbsp;</div>
+                            <div><span id="strength-example">@Model.Equipment.Strength</span>&nbsp;</div>
                         </div>
                     </div>
                     <div class="col-12 col-sm-6">
                         <div class="value-badge intelligence" data-bs-toggle="tooltip" data-bs-title="Intelligence">
-                            <div><span id="intelligence-example">@Model.Intelligence</span>&nbsp;</div>
+                            <div><span id="intelligence-example">@Model.Equipment.Intelligence</span>&nbsp;</div>
                         </div>
                     </div>
                     <div class="col-12 col-sm-6">
                         <div class="value-badge agility" data-bs-toggle="tooltip" data-bs-title="Agility">
-                            <div><span id="agility-example">@Model.Agility</span>&nbsp;</div>
+                            <div><span id="agility-example">@Model.Equipment.Agility</span>&nbsp;</div>
                         </div>
                     </div>
                     <div class="col-12 col-sm-6">
                         <div class="value-badge price" data-bs-toggle="tooltip" data-bs-title="Price">
-                            <div><span id="price-example">@Model.Price</span>&nbsp;</div>
+                            <div><span id="price-example">@Model.Equipment.Price</span>&nbsp;</div>
                         </div>
                     </div>
                 </div>
@@ -124,8 +124,12 @@
                 <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                Weet je zeker dat je @Model.Name wilt verwijderen? <br/><br/>
-                Als er ninja's zijn die deze equipment gebruiken, zullen zij het betaalde bedrag terugkrijgen. Het verwijderen kan dan wat langer duren.
+                Weet je zeker dat je @Model.Equipment.Name wilt verwijderen?
+                
+                @if (Model.UsedBy != null && Model.UsedBy.Count > 0)
+                {
+                    <p>Er zijn nog <strong>@Model.UsedBy.Count</strong> ninja's die deze equipment gebruiken. Zij zullen het betaalde bedrag terugkrijgen.</p>
+                }
 
                 <p class="text-danger mt-3">
                     <i class="fas fa-exclamation-triangle"></i>
@@ -134,7 +138,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuleer</button>
-                <a asp-controller="Equipment" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger" id="confirmDeleteButton">Verwijder</a>
+                <a asp-controller="Equipment" asp-action="Delete" asp-route-id="@Model.Equipment.Id" class="btn btn-danger" id="confirmDeleteButton">Verwijder</a>
             </div>
         </div>
     </div>

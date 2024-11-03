@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using NinjaApp.Models;
+using NinjaApp.Models.Enums;
 using NinjaApp.ViewModels;
 
 namespace NinjaApp.Controllers;
@@ -74,7 +75,14 @@ public class EquipmentController : MainController
             return RedirectToAction("Index");
         }
         
-        return View(equipment);
+        var usedBy = Context.InventoryItems.Where(i => i.EquipmentId == id).ToList();
+        var viewModel = new EquipmentEditViewModel()
+        {
+            Equipment = equipment,
+            UsedBy = usedBy
+        };
+        
+        return View(viewModel);
     }
 
     [HttpPost]
