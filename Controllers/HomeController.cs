@@ -94,7 +94,7 @@ public class HomeController : MainController
         {
             Context.Ninjas.Update(existingNinja);
             Context.SaveChanges();
-            TempData["SuccessMessage"] = $"Ninja {existingNinja.Name} is succesvol geüpdatet.";
+            TempData["SuccessMessage"] = $"Ninja {existingNinja.Name} is succesvol bewerkt.";
         }
         catch
         {
