@@ -1,0 +1,180 @@
+@using NinjaApp.Models
+@using NinjaApp.Models.Enums
+@code {
+    [Parameter]
+    public required SlotCategory Category { get; set; }
+    [Parameter]
+    public required SlotCategory? SelectedSlotCategory { get; set; }
+    [Parameter]
+    public required Equipment? CurrentEquipment { get; set; }
+    [Parameter]
+    public int? SellPrice { get; set; }
+    [Parameter]
+    public required Guid NinjaId { get; set; }
+    [Parameter]
+    public required List<Equipment>? AllEquipment { get; set; }
+    
+}
+
+<div class="tab-pane fade @(Category == (SelectedSlotCategory ?? SlotCategory.Head) ? "show active" : "")" id="@Category-tab-pane" role="tabpanel">
+    <div class="row row-p-0 px-0 gap-2 flex- shop-item">
+        
+        @* current equipment for this category *@
+        <div class="col-12 col-md col-lg-4 col-xxl-3 border-md-end">
+            <div class="sticky-top" style="top: 6rem; padding-right: 1rem !important">
+                <p class="fw-bold mb-2">Huidige Equipment</p>
+                @if (CurrentEquipment == null)
+                {
+                    <div class="custom-card w-100 empty-card d-flex align-items-end border-3" style="--inventory-item-bg-img: url('@($"../img/gear/{Category.ToString()}.png")')">
+                        <div class="card-body text-center">
+                            Geen huidige equipment voor deze categorie
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="custom-card border-3">
+                        <div class="card-header d-flex align-items-center justify-content-between">
+                            <h4 class="card-title text-start">@CurrentEquipment.Name</h4>
+                            <a href="/equipment/edit/@CurrentEquipment.Id" class="btn btn-outline-secondary"
+                               data-bs-target="tooltip" data-bs-title="Bewerk equipment">
+                                <i class="fa-regular fa-pen-to-square"></i>
+                            </a>
+                        </div>
+                        <div class="card-body text-center">
+                            <div class="row">
+                                <div class="col-12 col-sm-6">
+                                    <div class="value-badge strength" data-bs-toggle="tooltip" data-bs-title="Strength">
+                                        <div>@CurrentEquipment.Strength</div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="value-badge intelligence" data-bs-toggle="tooltip" data-bs-title="Intelligence">
+                                        <div>@CurrentEquipment.Intelligence</div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="value-badge agility" data-bs-toggle="tooltip" data-bs-title="Agility">
+                                        <div>@CurrentEquipment.Agility</div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="value-badge price" data-bs-toggle="tooltip" data-bs-title="Huidige prijs">
+                                        <div>@CurrentEquipment.Price</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            @if (SellPrice != null)
+                            {
+                                <div data-bs-toggle="tooltip" data-bs-title="Verkoop voor de prijs waarvoor je het hebt gekocht">
+                                    <button type="button" class="btn btn-outline-danger w-100" data-bs-target="#sellModal-@CurrentEquipment?.Id" data-bs-toggle="modal">
+                                        Verkopen voor @SellPrice goud
+                                    </button>
+                                </div>
+                            }
+                            else
+                            {
+                                <button type="button" class="btn btn-outline-danger w-100" data-bs-toggle="tooltip" data-bs-title="Er is iets misgegaan, verkoop niet mogelijk">
+                                    Verkoop niet mogelijk
+                                </button>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        @* list with all equipment for this category *@
+        @if (AllEquipment == null || AllEquipment.Count == 0)
+        {
+            <div class="col">
+                <p class="fw-bold mb-2">Alle Equipment van de categorie @Category.ToFriendlyString()</p>
+                <div class="custom-card w-100 empty-card d-flex align-items-center">
+                    <div class="card-body text-center">
+                        <i class="fas fa-info-circle me-1"></i>
+                        Er zijn nog geen equipments aangemaakt voor deze categorie. <br/>
+                        Klik <a href="/equipment/create">hier</a> om een nieuwe equipment aan te maken.
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="col row p-0" style="margin-right: -0.75em;">
+                <p class="fw-bold mb-2">Alle Equipment van de categorie @Category.ToFriendlyString()</p>
+                @foreach (var equip in AllEquipment.Where(e => e.Category == Category))
+                {
+                    <div class="col-12 col-lg-6 col-xxl-4 mb-2">
+                        <div class="custom-card">
+                            <div class="card-header d-flex align-items-center justify-content-between">
+                                <h4 class="card-title">@equip.Name</h4>
+                                <a href="/equipment/edit/@equip.Id" class="btn btn-outline-secondary"
+                                   data-bs-target="tooltip" data-bs-title="Bewerk equipment">
+                                    <i class="fa-regular fa-pen-to-square"></i>
+                                </a>
+                            </div>
+                            <div class="card-body text-center">
+                                <div class="row">
+                                    <div class="col-12 col-sm-6">
+                                        <div class="value-badge strength" data-bs-toggle="tooltip" data-bs-title="Strength">
+                                            <div>@equip.Strength</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-6">
+                                        <div class="value-badge intelligence" data-bs-toggle="tooltip" data-bs-title="Intelligence">
+                                            <div>@equip.Intelligence</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-6">
+                                        <div class="value-badge agility" data-bs-toggle="tooltip" data-bs-title="Agility">
+                                            <div>@equip.Agility</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-6">
+                                        <div class="value-badge price" data-bs-toggle="tooltip" data-bs-title="Huidige prijs">
+                                            <div>@equip.Price</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div data-bs-toggle="tooltip" data-bs-title="Koop deze equipment">
+                                    <a href="/shop/buy?ninjaId=@NinjaId&equipmentId=@equip.Id" class="btn btn-outline-primary w-100">
+                                        Koop voor @equip.Price goud
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</div>
+
+@* Confirm sell Modal *@
+<div class="modal fade" id="sellModal-@CurrentEquipment?.Id" tabindex="-1" aria-labelledby="sellModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Bevestig verkoop</h5>
+                <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Weet je zeker dat je <strong>@CurrentEquipment?.Name</strong> wilt verkopen voor <strong>@SellPrice</strong> goud?
+
+                <p class="text-danger mt-3">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Deze actie kan niet ongedaan worden gemaakt!
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuleer</button>
+                <a href="/shop/sell?ninjaId=@NinjaId&equipmentId=@CurrentEquipment?.Id"
+                   class="btn btn-danger" id="confirmDeleteButton">Verkoop</a>
+            </div>
+        </div>
+    </div>
+</div>
