@@ -36,42 +36,55 @@
                 </div>
 
                 <div class="row auto-m">
-                    @foreach (var equipment in Model.Equipments.Where(e => e.Category == category))
+                    @if (Model.Equipments == null || Model.Equipments.Any(e => e.Category == category) == false)
                     {
-                        <div class="col-4 py-2">
-                            <div class="custom-card">
-                                <div class="card-header d-flex align-items-center justify-content-between">
-                                    <h4 class="card-title">@equipment.Name</h4>
-                                    <a asp-controller="Equipment" asp-action="Edit" asp-route-id="@equipment.Id" class="btn btn-outline-secondary">
-                                        <i class="fa-regular fa-pen-to-square"></i>
-                                    </a>
-                                </div>
-                                <div class="card-body text-center">
-                                    <div class="row">
-                                        <div class="col-12 col-sm-6">
-                                            <div class="value-badge strength" data-bs-toggle="tooltip" data-bs-title="Strength">
-                                                <div>@equipment.Strength</div>
+                        <div class="custom-card w-100 empty-card d-flex align-items-center">
+                            <div class="card-body text-center">
+                                <i class="fas fa-info-circle me-1"></i>
+                                Er zijn nog geen equipments aangemaakt voor deze categorie. <br/>
+                                Klik <a href="/equipment/new?category=@category">hier</a> om een nieuwe equipment aan te maken.
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        foreach (var equipment in Model.Equipments.Where(e => e.Category == category))
+                        {
+                            <div class="col-4 py-2">
+                                <div class="custom-card">
+                                    <div class="card-header d-flex align-items-center justify-content-between">
+                                        <h4 class="card-title">@equipment.Name</h4>
+                                        <a asp-controller="Equipment" asp-action="Edit" asp-route-id="@equipment.Id" class="btn btn-outline-secondary">
+                                            <i class="fa-regular fa-pen-to-square"></i>
+                                        </a>
+                                    </div>
+                                    <div class="card-body text-center">
+                                        <div class="row">
+                                            <div class="col-12 col-sm-6">
+                                                <div class="value-badge strength" data-bs-toggle="tooltip" data-bs-title="Strength">
+                                                    <div>@equipment.Strength</div>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-12 col-sm-6">
-                                            <div class="value-badge intelligence" data-bs-toggle="tooltip" data-bs-title="Intelligence">
-                                                <div>@equipment.Intelligence</div>
+                                            <div class="col-12 col-sm-6">
+                                                <div class="value-badge intelligence" data-bs-toggle="tooltip" data-bs-title="Intelligence">
+                                                    <div>@equipment.Intelligence</div>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-12 col-sm-6">
-                                            <div class="value-badge agility" data-bs-toggle="tooltip" data-bs-title="Agility">
-                                                <div>@equipment.Agility</div>
+                                            <div class="col-12 col-sm-6">
+                                                <div class="value-badge agility" data-bs-toggle="tooltip" data-bs-title="Agility">
+                                                    <div>@equipment.Agility</div>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-12 col-sm-6">
-                                            <div class="value-badge price" data-bs-toggle="tooltip" data-bs-title="Price">
-                                                <div>@equipment.Price</div>
+                                            <div class="col-12 col-sm-6">
+                                                <div class="value-badge price" data-bs-toggle="tooltip" data-bs-title="Price">
+                                                    <div>@equipment.Price</div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        }
                     }
                 </div>
             </div>
