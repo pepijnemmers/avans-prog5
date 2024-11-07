@@ -42,7 +42,7 @@ public class MainController : Controller
     /// </summary>
     /// <param name="id"> The id of the ninja. </param>
     /// <returns> The ninja if found, null if not. </returns>
-    protected Ninja GetNinjaFromId(Guid id)
+    protected Ninja? GetNinjaFromId(Guid id)
     {
         var ninjas = Context.Ninjas
             .OrderBy(ninja => ninja.Name)
